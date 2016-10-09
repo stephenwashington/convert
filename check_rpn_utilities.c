@@ -3,9 +3,20 @@
 #include <check.h>
 #include "rpn_utilities.h"
 
-START_TEST(test_identify_type){
+START_TEST(test_identify_type_a){
     ck_assert_int_eq(identify_type('a'), 1);
+} END_TEST
+
+START_TEST (test_identify_type_b){
     ck_assert_int_eq(identify_type('b'), 1);
+} END_TEST
+
+START_TEST (test_identify_type_A){
+    ck_assert_int_eq(identify_type('A'), -1);
+} END_TEST
+
+START_TEST (test_identify_special_char){
+    ck_assert_int_eq(identify_type('/'), 1);
 } END_TEST
 
 Suite * utility_suite(void){
@@ -15,7 +26,10 @@ Suite * utility_suite(void){
     s = suite_create("identify_type");
     tc_core = tcase_create("Core");
 
-    tcase_add_test(tc_core, test_identify_type);
+    tcase_add_test(tc_core, test_identify_type_a);
+    tcase_add_test(tc_core, test_identify_type_b);
+    tcase_add_test(tc_core, test_identify_type_A);
+    tcase_add_test(tc_core, test_identify_special_char);
     suite_add_tcase(s, tc_core);
 
     return s;
