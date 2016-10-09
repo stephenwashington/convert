@@ -1,10 +1,10 @@
 #include <stdint.h>
 #include <string.h>
-#include <stdlib.h>
+#include <ctype.h>
 #include "rpn_utilities.h"
 
-int8_t identify_type(char *c){
-    if (strcmp(c, "a") == 0){
+int16_t identify_type(uint8_t c){
+    if (isalpha(c) && islower(c)){
         return 1;
     }
     return -1;

@@ -1,4 +1,6 @@
 #include <stdint.h>
 #pragma once
 
-int8_t identify_type(char *c);
+int16_t identify_type(uint8_t c);
+
+
