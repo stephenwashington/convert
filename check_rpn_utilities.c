@@ -17,11 +17,19 @@ START_TEST (test_identify_type_A){
 } END_TEST
 
 START_TEST (test_identify_valid_special_char){
+    ck_assert_int_eq(identify_type('('), true);
+    ck_assert_int_eq(identify_type(')'), true);
+    ck_assert_int_eq(identify_type('^'), true);
     ck_assert_int_eq(identify_type('/'), true);
+    ck_assert_int_eq(identify_type('*'), true);
+    ck_assert_int_eq(identify_type('-'), true);
+    ck_assert_int_eq(identify_type('+'), true);
 } END_TEST
 
 START_TEST (test_identify_invalid_special_char){
     ck_assert_int_eq(identify_type('{'), false);
+    ck_assert_int_eq(identify_type('.'), false);
+    ck_assert_int_eq(identify_type('%'), false);
 } END_TEST
 
 Suite * utility_suite(void){
