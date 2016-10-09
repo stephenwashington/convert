@@ -1,26 +1,27 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <check.h>
+#include <stdbool.h>
 #include "rpn_utilities.h"
 
 START_TEST(test_identify_type_a){
-    ck_assert_int_eq(identify_type('a'), 1);
+    ck_assert_int_eq(identify_type('a'), true);
 } END_TEST
 
 START_TEST (test_identify_type_b){
-    ck_assert_int_eq(identify_type('b'), 1);
+    ck_assert_int_eq(identify_type('b'), true);
 } END_TEST
 
 START_TEST (test_identify_type_A){
-    ck_assert_int_eq(identify_type('A'), -1);
+    ck_assert_int_eq(identify_type('A'), false);
 } END_TEST
 
 START_TEST (test_identify_valid_special_char){
-    ck_assert_int_eq(identify_type('/'), 1);
+    ck_assert_int_eq(identify_type('/'), true);
 } END_TEST
 
 START_TEST (test_identify_invalid_special_char){
-    ck_assert_int_eq(identify_type('{'), -1);
+    ck_assert_int_eq(identify_type('{'), false);
 } END_TEST
 
 Suite * utility_suite(void){

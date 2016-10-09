@@ -1,6 +1,7 @@
 #include <stdint.h>
+#include <stdbool.h>
 #pragma once
 
-int16_t identify_type(uint8_t c);
+bool identify_type(uint8_t c);
 
 
