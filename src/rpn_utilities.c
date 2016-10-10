@@ -6,7 +6,7 @@
 
 const uint8_t valid_symbols[7] = {'(', ')', '^', '/', '*', '-', '+'};
 
-bool is_valid(uint8_t c){
+bool is_valid_char(uint8_t c){
     if (isalpha(c) && islower(c)){
         return true;
     } else{

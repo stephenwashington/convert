@@ -2,6 +2,6 @@
 #include <stdbool.h>
 #pragma once
 
-bool is_valid(uint8_t c);
+bool is_valid_char(uint8_t c);
 
 

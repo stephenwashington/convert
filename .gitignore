@@ -1,4 +1,5 @@
-check_rpn_utilities
+build
+bin/*
 *.pdf
 
 ### GITHUB VIM PROJECT GITIGNORE TEMPLATE ###

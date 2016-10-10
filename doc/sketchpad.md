@@ -3,7 +3,7 @@
 File: utilities.c:
     + is_parenthesis: return true if character is "()"
     + is_valid_symbol: return true if character is in "^/*-+"
-    + is_valid: return true if character is valid
+    + is_valid_char: return true if character is valid
         - Valid characters: lowercase english alphabet or is_valid_symbol() or is_parenthesis()
         
     - is_valid_expression: return true if all characters of a expression are valid (either RPN or infix)
