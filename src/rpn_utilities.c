@@ -13,6 +13,10 @@ bool is_parenthesis(uint8_t c){
     return (c == '(') || (c == ')');
 }
 
+bool is_variable(uint8_t c){
+    return (c == 'a');
+}
+
 bool is_valid_char(uint8_t c){
     return (isalpha(c) && islower(c)) || \
             is_parenthesis(c) || is_valid_operator(c);

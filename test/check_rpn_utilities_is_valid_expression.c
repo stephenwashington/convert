@@ -19,7 +19,7 @@ START_TEST(test_is_valid_expression_aplusb){
     ck_assert_int_eq(is_valid_expression(exp), true);
 } END_TEST
 
-/*START_TEST(test_is_valid_expression_ab){
+/* START_TEST(test_is_valid_expression_ab){
     uint8_t exp[2] = {'a', 'b'};
     ck_assert_int_eq(is_valid_expression(exp), false);
 } END_TEST */
