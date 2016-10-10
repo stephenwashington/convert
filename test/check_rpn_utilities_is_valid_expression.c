@@ -19,6 +19,11 @@ START_TEST(test_is_valid_expression_aplusb){
     ck_assert_int_eq(is_valid_expression(exp), true);
 } END_TEST
 
+/*START_TEST(test_is_valid_expression_ab){
+    uint8_t exp[2] = {'a', 'b'};
+    ck_assert_int_eq(is_valid_expression(exp), false);
+} END_TEST */
+
 Suite * make_is_valid_expression_suite(void){
     Suite *s;
     TCase *tc_core;
@@ -29,6 +34,7 @@ Suite * make_is_valid_expression_suite(void){
     tcase_add_test(tc_core, test_is_valid_expression_a);
     tcase_add_test(tc_core, test_is_valid_expression_A);
     tcase_add_test(tc_core, test_is_valid_expression_aplusb);
+    //tcase_add_test(tc_core, test_is_valid_expression_ab);
     suite_add_tcase(s, tc_core);
 
     return s;

@@ -7,6 +7,10 @@
 
 const uint8_t valid_symbols[7] = {'(', ')', '^', '/', '*', '-', '+'};
 
+bool is_parenthesis(uint8_t c){
+    return (c == '(') || (c == ')');
+}
+
 bool is_valid_char(uint8_t c){
     if (isalpha(c) && islower(c)){
         return true;
