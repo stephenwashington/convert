@@ -3,6 +3,7 @@
 #include <check.h>
 #include <stdbool.h>
 #include "rpn_utilities.h"
+#include "rpn_unit_tests.h"
 
 START_TEST(test_is_valid_char_a){
     ck_assert_int_eq(is_valid_char('a'), true);
@@ -32,7 +33,7 @@ START_TEST (test_identify_invalid_special_char){
     ck_assert_int_eq(is_valid_char('%'), false);
 } END_TEST
 
-Suite * utility_suite(void){
+Suite * make_is_valid_char_suite(void){
     Suite *s;
     TCase *tc_core;
 
@@ -47,18 +48,4 @@ Suite * utility_suite(void){
     suite_add_tcase(s, tc_core);
 
     return s;
-}
-
-int main(void){
-    int number_failed;
-    Suite *s;
-    SRunner *sr;
-
-    s = utility_suite();
-    sr = srunner_create(s);
-
-    srunner_run_all(sr, CK_NORMAL);
-    number_failed = srunner_ntests_failed(sr);
-    srunner_free(sr);
-    return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
