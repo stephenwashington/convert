@@ -13,6 +13,7 @@ START_TEST(test_is_valid_operator_false){
 
 START_TEST(test_is_valid_operator_true){
     ck_assert_int_eq(is_valid_operator('+'), true);
+    ck_assert_int_eq(is_valid_operator('-'), true);
 } END_TEST
 
 

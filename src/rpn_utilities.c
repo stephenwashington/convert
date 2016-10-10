@@ -8,7 +8,7 @@
 const uint8_t valid_symbols[7] = {'(', ')', '^', '/', '*', '-', '+'};
 
 bool is_valid_operator(uint8_t c){
-    return c == '+';
+    return (c == '+') || (c == '-');
 }
 
 bool is_parenthesis(uint8_t c){
