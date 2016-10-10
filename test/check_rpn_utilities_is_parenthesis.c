@@ -7,6 +7,8 @@
 START_TEST(test_is_parenthesis_false){
     ck_assert_int_eq(is_parenthesis('a'), false);
     ck_assert_int_eq(is_parenthesis('R'), false);
+    ck_assert_int_eq(is_parenthesis('3'), false);
+    ck_assert_int_eq(is_parenthesis('*'), false);
 } END_TEST
 
 
