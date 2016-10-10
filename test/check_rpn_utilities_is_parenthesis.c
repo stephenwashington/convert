@@ -11,6 +11,11 @@ START_TEST(test_is_parenthesis_false){
     ck_assert_int_eq(is_parenthesis('*'), false);
 } END_TEST
 
+START_TEST(test_is_parenthesis_true){
+    ck_assert_int_eq(is_parenthesis('('), true);
+    ck_assert_int_eq(is_parenthesis(')'), true);
+} END_TEST
+
 
 Suite * make_is_parenthesis_suite(void){
     Suite *s;
@@ -20,6 +25,7 @@ Suite * make_is_parenthesis_suite(void){
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, test_is_parenthesis_false);
+    tcase_add_test(tc_core, test_is_parenthesis_true);
     suite_add_tcase(s, tc_core);
 
     return s;
