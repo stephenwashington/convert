@@ -1,17 +1,34 @@
-CFLAGS = -Wall -Wextra -pedantic -Werror -Wshadow -Wstrict-overflow \
--fno-strict-aliasing -O2
-LIBS = -lcheck -lm -lsubunit -lrt -lpthread
+# Main makefile
+CC := gcc
+SRCDIR := src
+BUILDDIR := build
+TESTDIR := test
 
-OBJECTS = rpn_utilities.o check_rpn_utilities.o
+TEST_TARGET := bin/rpn_tests
 
-all: check_rpn_utilities
+SOURCES := $(shell find $(SRCDIR) -type f -name *.c)
+OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.c=.o))
+TEST_SOURCES := $(shell find $(TESTDIR) -type f -name *.c)
+TEST_OBJECTS := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TEST_SOURCES:.c=.o))
+TEST_OBJECTS += $(OBJECTS)
 
-check_rpn_utilities: $(OBJECTS)
-	gcc -std=c99 -o check_rpn_utilities $(OBJECTS) $(CFLAGS) $(LIBS)
+CFLAGS := -std=c99 -Wall -Wextra -pedantic -Werror -Wshadow -Wstrict-overflow -fno-strict-aliasing -O2
+LIBS := -lcheck -lm -lsubunit -lrt -lpthread
+INC := -I include
 
-rpn_utilities.o: rpn_utilities.h
-check_rpn_utilities.o: rpn_utilities.h
+tests: $(TEST_TARGET)
+
+$(TEST_TARGET): $(TEST_OBJECTS)
+	$(CC) $^ -o $(TEST_TARGET) $(INC) $(CFLAGS) $(LIBS)
+	
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
+	mkdir -p $(BUILDDIR)
+	$(CC) -c -o $@ $< $(INC) $(CFLAGS) $(LIBS)
+	
+$(BUILDDIR)/%.o: $(TESTDIR)/%.c
+	mkdir -p $(BUILDDIR)
+	$(CC)  -c -o $@ $< $(INC) $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 clean:
-	-rm -f rpn_utilities check_rpn_utilities $(OBJECTS)
+	-@rm -rf $(BUILDDIR) $(TEST_TARGET)
