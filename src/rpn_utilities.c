@@ -5,8 +5,6 @@
 #include <ctype.h>
 #include "rpn_utilities.h"
 
-const uint8_t valid_symbols[7] = {'(', ')', '^', '/', '*', '-', '+'};
-
 bool is_valid_operator(uint8_t c){
     return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '^');
 }
@@ -16,16 +14,8 @@ bool is_parenthesis(uint8_t c){
 }
 
 bool is_valid_char(uint8_t c){
-    if (isalpha(c) && islower(c)){
-        return true;
-    } else{
-        for (int16_t i = 0; i < 7; i++){
-            if (c == valid_symbols[i]){
-                return true;
-            }
-        }
-    }
-    return false;
+    return (isalpha(c) && islower(c)) || \
+            is_parenthesis(c) || is_valid_operator(c);
 }
 
 bool is_valid_expression(uint8_t *exp){
