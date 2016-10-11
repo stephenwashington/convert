@@ -30,11 +30,22 @@ START_TEST(test_is_valid_expression_negb){
 } END_TEST
 
 START_TEST(test_is_valid_expression_complex){
-    uint8_t exp[5] = {'(', 'a', '+', 'b', ')'};
-    ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), true);
-    
     uint8_t exp1[5] = {'a', '+', 'b', '^', 'c'};
     ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), true);
+    
+    uint8_t exp2[5] = {'(', 'a', '+', 'b', ')'};
+    ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), true);
+    
+    uint8_t exp3[7] = {'(', 'a', '+', 'b', ')', '-', 'c'};
+    ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), true);
+    
+    uint8_t exp4[9] = {'l', '/', 'm', '^', 'n', '*', 'o', '-', 'p'};
+    ck_assert_int_eq(is_valid_expression(exp4, sizeof(exp4)), true);
+    
+    uint8_t exp5[17] = {'a', 'g', '+', 'b', 'a', '-', 'c', '+', 'c', 'e', 'd',\
+                        'f', '^', '*', '+', '^', '*'};
+    ck_assert_int_eq(is_valid_expression(exp5, sizeof(exp5)), true);
+    
 } END_TEST
 
 START_TEST(test_is_valid_expression_various_false){
