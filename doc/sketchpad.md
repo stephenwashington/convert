@@ -6,12 +6,10 @@ File: utilities.c:
     + is_valid_char: return true if character is valid
         - Valid characters: lowercase english alphabet or is_valid_symbol() or is_parenthesis()
         
-    - is_valid_expression: return true if all characters of a expression are valid (either RPN or infix)
-        - Valid RPN: lowercase english alphabet or is_valid_symbol()
-        - Valid Infix: lowercase english alphabet or is_valid_symbol() or is_parenthesis()
-        - Also returns false if there is an improper amount of letters/symbols:
-            - Proper RPN: Given n variables, there MUST be EXACTLY n-1 operators
-            - Proper Infix: Same as RPN AND there MUST be the same number of '(' and ')' occurences
+    + is_valid_expression: return true if all characters of a expression are roughly syntactically valid (either RPN or infix)
+        - Test: Given n variables, there must be EXACTLY n-1 operators and the same number of '(' and ')' in the expression
+        - This is only to be used as a rough check - more stringent checking (with throwable errors)
+          will occur when the script attempts to convert the expression
         
 File: rpn.c
     - rpn_update_stack: Given a pointer to a RPN stack and a command in the form of a single character, execute that command
@@ -44,7 +42,6 @@ File: infix.c
             - execute infix_update_stacks on the letter
         - If there are any more operators in the 'symbols' stack, place on top of 'result' stack
         - return the result stack
-
 
 File: main.c
 

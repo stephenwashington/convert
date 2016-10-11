@@ -6,3 +6,4 @@ Suite * make_is_valid_expression_suite(void);
 Suite * make_is_parenthesis_suite(void);
 Suite * make_is_valid_operator_suite(void);
 Suite * make_is_variable_suite(void);
+Suite * make_update_rpn_stack_suite(void);
