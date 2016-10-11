@@ -29,9 +29,12 @@ START_TEST(test_is_valid_expression_negb){
     ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), false);
 } END_TEST
 
-START_TEST(test_is_valid_expression_aplusb_inparen){
+START_TEST(test_is_valid_expression_complex){
     uint8_t exp[5] = {'(', 'a', '+', 'b', ')'};
     ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), true);
+    
+    uint8_t exp1[5] = {'a', '+', 'b', '^', 'c'};
+    ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), true);
 } END_TEST
 
 START_TEST(test_is_valid_expression_various_false){
@@ -44,20 +47,20 @@ START_TEST(test_is_valid_expression_various_false){
     // This is taken as false beacuse the expression is empty
     uint8_t exp3[2] = {'(', ')'};
     ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), false);
+    
 } END_TEST
 
-START_TEST(test_is_valid_expression_various_true){
-    uint8_t exp1[5] = {'a', '+', 'b', '^', 'c'};
-    ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), true);
-    
 /* Note that the following are invalid in both infix and rpn notation
  * but this is okay, since the is_valid_expression function is more of a 
  * sanity check/first pass than a robust syntax checker - syntax checkers
  * for each form of notation come about naturally in the parsing phase
  */
+
+START_TEST(test_is_valid_expression_weird_cases){
     uint8_t exp2[5] = {'a', '+', 'b', 'c', '^'};
     ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), true);
     
+    // again, false because it's empty, not beacuse of the syntax itself
     uint8_t exp3[2] = {')', '('};
     ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), false);
     
@@ -76,9 +79,9 @@ Suite * make_is_valid_expression_suite(void){
     tcase_add_test(tc_core, test_is_valid_expression_aplusb);
     tcase_add_test(tc_core, test_is_valid_expression_ab);
     tcase_add_test(tc_core, test_is_valid_expression_negb);
-    tcase_add_test(tc_core, test_is_valid_expression_aplusb_inparen);
+    tcase_add_test(tc_core, test_is_valid_expression_complex);
     tcase_add_test(tc_core, test_is_valid_expression_various_false);
-    tcase_add_test(tc_core, test_is_valid_expression_various_true);
+    tcase_add_test(tc_core, test_is_valid_expression_weird_cases);
     suite_add_tcase(s, tc_core);
 
     return s;

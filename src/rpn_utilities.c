@@ -38,5 +38,5 @@ bool is_valid_expression(uint8_t *exp, size_t len){
             paren_count++;
         }
     }
-    return  (variable_count - 1 == operator_count) && (paren_count % 2 == 0);
+    return (variable_count - 1 == operator_count) && (paren_count % 2 == 0);
 }
