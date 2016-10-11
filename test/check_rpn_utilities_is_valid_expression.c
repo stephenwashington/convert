@@ -34,6 +34,25 @@ START_TEST(test_is_valid_expression_aplusb_inparen){
     ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), true);
 } END_TEST
 
+START_TEST(test_is_valid_expression_various_false){
+    uint8_t exp1[4] = {'(', 'a', '+', 'b'};
+    ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), false);
+    
+    uint8_t exp2[4] = {'a', '+', 'b', '^'};
+    ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), false);
+} END_TEST
+
+START_TEST(test_is_valid_expression_various_true){
+    uint8_t exp1[5] = {'a', '+', 'b', '^', 'c'};
+    ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), true);
+    
+    uint8_t exp2[5] = {'a', '+', 'b', 'c', '^'};
+    ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), true);
+    
+} END_TEST
+
+
+
 Suite * make_is_valid_expression_suite(void){
     Suite *s;
     TCase *tc_core;
@@ -47,6 +66,8 @@ Suite * make_is_valid_expression_suite(void){
     tcase_add_test(tc_core, test_is_valid_expression_ab);
     tcase_add_test(tc_core, test_is_valid_expression_negb);
     tcase_add_test(tc_core, test_is_valid_expression_aplusb_inparen);
+    tcase_add_test(tc_core, test_is_valid_expression_various_false);
+    tcase_add_test(tc_core, test_is_valid_expression_various_true);
     suite_add_tcase(s, tc_core);
 
     return s;
