@@ -14,7 +14,7 @@ bool is_parenthesis(uint8_t c){
 }
 
 bool is_variable(uint8_t c){
-    return (c == 'a');
+    return isalpha(c) && islower(c);
 }
 
 bool is_valid_char(uint8_t c){

@@ -6,10 +6,15 @@
 
 START_TEST(test_is_variable_false){
     ck_assert_int_eq(is_variable('C'), false);
+    ck_assert_int_eq(is_variable('&'), false);
+    ck_assert_int_eq(is_variable('*'), false);
+    ck_assert_int_eq(is_variable('5'), false);
 } END_TEST
 
 START_TEST(test_is_variable_true){
     ck_assert_int_eq(is_variable('a'), true);
+    ck_assert_int_eq(is_variable('b'), true);
+    ck_assert_int_eq(is_variable('r'), true);
 } END_TEST
 
 Suite * make_is_variable_suite(void){
