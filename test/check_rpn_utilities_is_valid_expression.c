@@ -40,17 +40,28 @@ START_TEST(test_is_valid_expression_various_false){
     
     uint8_t exp2[4] = {'a', '+', 'b', '^'};
     ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), false);
+    
+    // This is taken as false beacuse the expression is empty
+    uint8_t exp3[2] = {'(', ')'};
+    ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), false);
 } END_TEST
 
 START_TEST(test_is_valid_expression_various_true){
     uint8_t exp1[5] = {'a', '+', 'b', '^', 'c'};
     ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), true);
     
+/* Note that the following are invalid in both infix and rpn notation
+ * but this is okay, since the is_valid_expression function is more of a 
+ * sanity check/first pass than a robust syntax checker - syntax checkers
+ * for each form of notation come about naturally in the parsing phase
+ */
     uint8_t exp2[5] = {'a', '+', 'b', 'c', '^'};
     ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), true);
     
+    uint8_t exp3[2] = {')', '('};
+    ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), false);
+    
 } END_TEST
-
 
 
 Suite * make_is_valid_expression_suite(void){
