@@ -14,7 +14,7 @@ START_TEST(test_update_rpn_stack_simple){
         update_rpn_stack(stack, &stack_length, input[i]);
     }
     
-    ck_assert_int_eq(stack[0][0], 'a');
+    ck_assert_str_eq((char*)stack[0], "a");
 } END_TEST
 
 START_TEST(test_update_rpn_stack_a_then_b){
@@ -25,8 +25,8 @@ START_TEST(test_update_rpn_stack_a_then_b){
         update_rpn_stack(stack, &stack_length, input[i]);
     }
     
-    ck_assert_int_eq(stack[0][0], 'a');
-    ck_assert_int_eq(stack[1][0], 'b');
+    ck_assert_str_eq((char*)stack[0], "a");
+    ck_assert_str_eq((char*)stack[1], "b");
 } END_TEST
 
 START_TEST(test_update_rpn_stack_add_b_to_a){
@@ -35,20 +35,12 @@ START_TEST(test_update_rpn_stack_add_b_to_a){
     const char input[] = "ab+";
     for (uint16_t i = 0; i < strlen(input); i++){
         update_rpn_stack(stack, &stack_length, input[i]);
-        /*for (int16_t j = 0; j < 5; j++){
-            printf("%u ",stack[0][j]);
-        }
-        printf("\n");*/
     }
         
-    ck_assert_int_eq(stack[0][0], '(');
-    ck_assert_int_eq(stack[0][1], 'a');
-    ck_assert_int_eq(stack[0][2], '+');
-    ck_assert_int_eq(stack[0][3], 'b');
-    ck_assert_int_eq(stack[0][4], ')');
+    ck_assert_str_eq((char*)stack[0], "(a+b)");
 } END_TEST
 
-/*START_TEST(test_update_rpn_stack_add_b_and_c_to_a){
+START_TEST(test_update_rpn_stack_add_b_and_c_to_a){
     uint8_t stack[50][1000];
     int16_t stack_length = 0;
     const char input[] = "ab+c+";
@@ -56,13 +48,20 @@ START_TEST(test_update_rpn_stack_add_b_to_a){
         update_rpn_stack(stack, &stack_length, input[i]);
     }
     
-    ck_assert_int_eq(stack[0][0], 'a');
-    ck_assert_int_eq(stack[0][1], '+');
-    ck_assert_int_eq(stack[0][2], 'b');
-    ck_assert_int_eq(stack[0][3], '+');
-    ck_assert_int_eq(stack[0][4], 'c');
-} END_TEST */
+    ck_assert_str_eq((char*)stack[0], "((a+b)+c)");
+} END_TEST
 
+START_TEST(test_update_rpn_stack_medium_difficulty){
+
+    uint8_t stack[50][1000];
+    int16_t stack_length = 0;
+    const char input[] = "vw/x^yz-*";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        update_rpn_stack(stack, &stack_length, input[i]);
+    }
+    
+    ck_assert_str_eq((char*)stack[0], "(((v/w)^x)*(y-z))");
+} END_TEST
 
 Suite * make_update_rpn_stack_suite(void){
     Suite *s;
@@ -74,7 +73,8 @@ Suite * make_update_rpn_stack_suite(void){
     tcase_add_test(tc_core, test_update_rpn_stack_simple);
     tcase_add_test(tc_core, test_update_rpn_stack_a_then_b);
     tcase_add_test(tc_core, test_update_rpn_stack_add_b_to_a);
-    //tcase_add_test(tc_core, test_update_rpn_stack_add_b_and_c_to_a);
+    tcase_add_test(tc_core, test_update_rpn_stack_add_b_and_c_to_a);
+    tcase_add_test(tc_core, test_update_rpn_stack_medium_difficulty);
     suite_add_tcase(s, tc_core);
 
     return s;
