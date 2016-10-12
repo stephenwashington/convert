@@ -17,6 +17,10 @@ START_TEST(test_rpn_to_infix_ab_throw_error){
     rpn_to_infix("ab");
 } END_TEST
 
+START_TEST(test_rpn_to_infix_medium_difficulty){
+    ck_assert_str_eq(rpn_to_infix("vw/x^yz-*"), "(((v/w)^x)*(y-z))");
+} END_TEST
+
 Suite * make_rpn_to_infix_suite(void){
     Suite *s;
     TCase *tc_core;
@@ -27,6 +31,7 @@ Suite * make_rpn_to_infix_suite(void){
     tcase_add_test(tc_core, test_rpn_to_infix_simple);
     tcase_add_test(tc_core, test_rpn_to_infix_a_plus_b);
     tcase_add_exit_test(tc_core, test_rpn_to_infix_ab_throw_error,EXIT_FAILURE);
+    tcase_add_test(tc_core, test_rpn_to_infix_medium_difficulty);
     suite_add_tcase(s, tc_core);
 
     return s;
