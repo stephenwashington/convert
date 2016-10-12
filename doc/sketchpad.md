@@ -12,7 +12,7 @@ File: utilities.c:
           will occur when the script attempts to convert the expression
         
 File: rpn.c
-    - rpn_update_stack: Given a pointer to a RPN stack and a command in the form of a single character, execute that command
+    + rpn_update_stack: Given a pointer to a RPN stack and a command in the form of a single character, execute that command
         - If 'command' is a letter, add that letter to the top of the stack
         - If 'command' is a symbol:
             1. Pop off the top two entries in the stack
@@ -21,10 +21,10 @@ File: rpn.c
             4. Add the result back to the stack
         - return the stack
         
-    - rpn_to_infix: given a RPN expression, return the equivalent infix expression
-        - Determine if RPN expression if valid
+    + rpn_to_infix: given a RPN expression, return the equivalent infix expression
         - Loop through expression, executing update_stack on each character
-        - Once the loop is done, convert stack to expression (will be infix format)
+        - Once the loop is done, stack[0] will hold final expression
+            - If any other entries in the stack are non-null, throw an error (too many expressions!)
         - return this expression
         
 File: infix.c

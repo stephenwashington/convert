@@ -21,9 +21,13 @@ START_TEST(test_rpn_to_infix_medium_difficulty){
     ck_assert_str_eq(rpn_to_infix("vw/x^yz-*"), "(((v/w)^x)*(y-z))");
 } END_TEST
 
-START_TEST(test_update_rpn_stack_hard_difficulty){
+START_TEST(test_rpn_to_infix_hard_difficulty){
     ck_assert_str_eq(rpn_to_infix("ag+ba-c+cedf^*+^*"), \
                                   "((a+g)*(((b-a)+c)^(c+(e*(d^f)))))");
+} END_TEST
+
+START_TEST(test_rpn_to_infix_too_many_expressions){
+    rpn_to_infix("ag+ba-c+cedf*");
 } END_TEST
 
 Suite * make_rpn_to_infix_suite(void){
@@ -37,7 +41,8 @@ Suite * make_rpn_to_infix_suite(void){
     tcase_add_test(tc_core, test_rpn_to_infix_a_plus_b);
     tcase_add_exit_test(tc_core, test_rpn_to_infix_ab_throw_error,EXIT_FAILURE);
     tcase_add_test(tc_core, test_rpn_to_infix_medium_difficulty);
-    tcase_add_test(tc_core, test_update_rpn_stack_hard_difficulty);
+    tcase_add_test(tc_core, test_rpn_to_infix_hard_difficulty);
+    tcase_add_exit_test(tc_core, test_rpn_to_infix_too_many_expressions, EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 
     return s;

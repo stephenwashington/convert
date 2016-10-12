@@ -30,7 +30,6 @@ int16_t pop(uint8_t char_slice[1000], uint8_t expr[1000]){
  */
 
 void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
-
     if (is_variable(command)){
         stack[*len][0] = command;    
         (*len)++;
@@ -38,7 +37,7 @@ void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
     
         // Need at least two expressions on the stack to execute any operator
         if ((*len) < 2){
-            //fprintf(stderr, g"Not enough expressions to perform operation: %c\n", command);
+            //fprintf(stderr, "Not enough expressions to perform operation: %c\n", command);
             exit(EXIT_FAILURE);
         }
         
@@ -59,6 +58,9 @@ void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
         memcpy(stack[*len], new_expr, 1000);
 
         (*len)++;
+    } else {
+        //fprintf(stderr,"Invalid character detected: %c\n",command);
+        exit(EXIT_FAILURE);
     }
 }
 

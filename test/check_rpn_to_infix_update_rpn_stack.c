@@ -85,6 +85,16 @@ START_TEST(test_update_rpn_stack_not_enough_expressions){
     
 } END_TEST
 
+START_TEST(test_update_rpn_stack_invalid_command){
+    uint8_t stack[50][1000];
+    int16_t stack_length = 0;
+    const char input[] = "ab4c^";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        update_rpn_stack(stack, &stack_length, input[i]);
+    }
+    
+} END_TEST
+
 Suite * make_update_rpn_stack_suite(void){
     Suite *s;
     TCase *tc_core;
@@ -99,6 +109,8 @@ Suite * make_update_rpn_stack_suite(void){
     tcase_add_test(tc_core, test_update_rpn_stack_medium_difficulty);
     tcase_add_test(tc_core, test_update_rpn_stack_hard_difficulty);
     tcase_add_exit_test(tc_core, test_update_rpn_stack_not_enough_expressions,\
+                        EXIT_FAILURE);
+    tcase_add_exit_test(tc_core, test_update_rpn_stack_invalid_command,\
                         EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 
