@@ -77,6 +77,21 @@ void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
 }
 
 const char * rpn_to_infix(const char * expr){
+    uint8_t stack[50][1000] = {0};
+    int16_t stack_length = 0;
+    for (uint16_t i = 0; i < strlen(expr); i++){
+        update_rpn_stack(stack, &stack_length, expr[i]);
+    }
+    
+    //Check to make sure we only have one expression remaining
+    for (int16_t i = 1; i < 50; i++){
+        if (stack[i][0] != 0){
+            fprintf(stderr, "Too many variables in expression\n");
+            exit(EXIT_FAILURE);
+        }
+    }
 
-    return expr;
+    char *result = calloc(1000, sizeof(char));
+    memcpy(result, stack[0], 1000);
+    return result;
 }

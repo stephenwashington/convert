@@ -13,6 +13,8 @@ int main(void){
     srunner_add_suite(sr, make_is_valid_operator_suite());
     srunner_add_suite(sr, make_is_variable_suite());
     srunner_add_suite(sr, make_update_rpn_stack_suite());
+    srunner_add_suite(sr, make_rpn_to_infix_suite());
+    
     
 
     srunner_run_all(sr, CK_NORMAL);
