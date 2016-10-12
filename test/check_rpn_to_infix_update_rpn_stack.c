@@ -40,9 +40,7 @@ START_TEST(test_update_rpn_stack_add_b_to_a){
         }
         printf("\n");*/
     }
-    
-
-    
+        
     ck_assert_int_eq(stack[0][0], '(');
     ck_assert_int_eq(stack[0][1], 'a');
     ck_assert_int_eq(stack[0][2], '+');
