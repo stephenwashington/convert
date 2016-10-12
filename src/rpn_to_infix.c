@@ -36,6 +36,11 @@ void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
         (*len)++;
     } else if (is_valid_operator(command)){
         //printf("EXECUTING OPERATION: %c\n",command);
+        if ((*len) < 2){
+            fprintf(stderr, \
+                  "Not enough expressions to perform operation: %c\n", command);
+            exit(EXIT_FAILURE);
+        }
         uint8_t expr_left[1000] = {0};
         uint8_t expr_right[1000] = {0};
         int16_t expr_right_len = pop(stack[(*len) - 1], expr_right);
