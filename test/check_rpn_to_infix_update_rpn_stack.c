@@ -35,12 +35,35 @@ START_TEST(test_update_rpn_stack_add_b_to_a){
     const char input[] = "ab+";
     for (uint16_t i = 0; i < strlen(input); i++){
         update_rpn_stack(stack, &stack_length, input[i]);
+        /*for (int16_t j = 0; j < 5; j++){
+            printf("%u ",stack[0][j]);
+        }
+        printf("\n");*/
+    }
+    
+
+    
+    ck_assert_int_eq(stack[0][0], '(');
+    ck_assert_int_eq(stack[0][1], 'a');
+    ck_assert_int_eq(stack[0][2], '+');
+    ck_assert_int_eq(stack[0][3], 'b');
+    ck_assert_int_eq(stack[0][4], ')');
+} END_TEST
+
+/*START_TEST(test_update_rpn_stack_add_b_and_c_to_a){
+    uint8_t stack[50][1000];
+    int16_t stack_length = 0;
+    const char input[] = "ab+c+";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        update_rpn_stack(stack, &stack_length, input[i]);
     }
     
     ck_assert_int_eq(stack[0][0], 'a');
     ck_assert_int_eq(stack[0][1], '+');
     ck_assert_int_eq(stack[0][2], 'b');
-} END_TEST
+    ck_assert_int_eq(stack[0][3], '+');
+    ck_assert_int_eq(stack[0][4], 'c');
+} END_TEST */
 
 
 Suite * make_update_rpn_stack_suite(void){
@@ -53,6 +76,7 @@ Suite * make_update_rpn_stack_suite(void){
     tcase_add_test(tc_core, test_update_rpn_stack_simple);
     tcase_add_test(tc_core, test_update_rpn_stack_a_then_b);
     tcase_add_test(tc_core, test_update_rpn_stack_add_b_to_a);
+    //tcase_add_test(tc_core, test_update_rpn_stack_add_b_and_c_to_a);
     suite_add_tcase(s, tc_core);
 
     return s;
