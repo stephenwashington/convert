@@ -63,6 +63,18 @@ START_TEST(test_update_rpn_stack_medium_difficulty){
     ck_assert_str_eq((char*)stack[0], "(((v/w)^x)*(y-z))");
 } END_TEST
 
+START_TEST(test_update_rpn_stack_hard_difficulty){
+
+    uint8_t stack[50][1000];
+    int16_t stack_length = 0;
+    const char input[] = "ag+ba-c+cedf^*+^*";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        update_rpn_stack(stack, &stack_length, input[i]);
+    }
+    
+    ck_assert_str_eq((char*)stack[0], "((a+g)*(((b-a)+c)^(c+(e*(d^f)))))");
+} END_TEST
+
 Suite * make_update_rpn_stack_suite(void){
     Suite *s;
     TCase *tc_core;
@@ -75,6 +87,7 @@ Suite * make_update_rpn_stack_suite(void){
     tcase_add_test(tc_core, test_update_rpn_stack_add_b_to_a);
     tcase_add_test(tc_core, test_update_rpn_stack_add_b_and_c_to_a);
     tcase_add_test(tc_core, test_update_rpn_stack_medium_difficulty);
+    tcase_add_test(tc_core, test_update_rpn_stack_hard_difficulty);
     suite_add_tcase(s, tc_core);
 
     return s;
