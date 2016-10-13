@@ -6,4 +6,5 @@ struct stack{
     int16_t length;
 };
 
-void update_infix_stacks(struct stack s, uint8_t command);
+void update_infix_stacks(struct stack *variable, struct stack *symbol,\
+                            uint8_t command);

@@ -17,8 +17,12 @@ bool is_variable(uint8_t c){
     return isalpha(c) && islower(c);
 }
 
+bool is_symbol(uint8_t c){
+    return is_valid_operator(c) || is_parenthesis(c);
+}
+
 bool is_valid_char(uint8_t c){
-    return is_variable(c) || is_parenthesis(c) || is_valid_operator(c);
+    return is_variable(c) || is_symbol(c);
 }
 
 bool is_valid_expression(uint8_t *exp, size_t len){
