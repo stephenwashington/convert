@@ -8,7 +8,6 @@
 void update_infix_stacks(struct stack *variable, struct stack *symbol,\
                             uint8_t command){
                             
-    printf("STATS: %d %d %c\n", variable->length, symbol->length, command);                    
     if (is_variable(command)){
         memcpy(&variable->content[variable->length], &command, 1);
         variable->length++;
