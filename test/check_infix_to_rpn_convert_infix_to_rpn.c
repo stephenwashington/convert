@@ -18,7 +18,9 @@ START_TEST(test_convert_infix_to_rpn_stacks_a_plus_b_minus_c){
     ck_assert_str_eq(infix_to_rpn("a+b-c"), "abc-+");
 } END_TEST
 
-
+START_TEST(test_convert_infix_to_rpn_obey_order_of_operations){
+    ck_assert_str_eq(infix_to_rpn("l/m^n*o-p"), "lmn^/o*p-");
+} END_TEST
 
 
 Suite * make_convert_infix_to_rpn_suite(void){
@@ -31,6 +33,8 @@ Suite * make_convert_infix_to_rpn_suite(void){
     tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_simple);
     tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_a_plus_b);
     tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_a_plus_b_minus_c);
+    tcase_add_test(tc_core,\
+                   test_convert_infix_to_rpn_obey_order_of_operations);
     suite_add_tcase(s, tc_core);
 
     return s;
