@@ -1,4 +1,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-void update_infix_stacks(uint8_t variable_stack[1000], uint8_t command);
+struct stack{
+    uint8_t content[1000];
+    int16_t length;
+};
+
+void update_infix_stacks(struct stack s, uint8_t command);

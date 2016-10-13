@@ -4,9 +4,6 @@
 #include "rpn_utilities.h"
 #include "infix_to_rpn.h"
 
-void update_infix_stacks(uint8_t variable_stack[1000], uint8_t command){
-
-    memcpy(variable_stack, &command, 1);
-    return;
-                        
+void update_infix_stacks(struct stack s, uint8_t command){
+    memcpy(s.content, &command, 1);
 }

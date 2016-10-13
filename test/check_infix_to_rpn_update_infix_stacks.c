@@ -7,14 +7,25 @@
 #include "infix_to_rpn.h"
 
 START_TEST(test_update_infix_stacks_simple){
-    uint8_t variable_stack[1000] = {0};
+    struct stack variable_stack = { .content = {0}, .length = 0};
     const char input[] = "a";
     for (uint16_t i = 0; i < strlen(input); i++){
         update_infix_stacks(variable_stack, input[i]);
     }
     
-    ck_assert_str_eq((char*)variable_stack, "a");
+    ck_assert_str_eq((char*)variable_stack.content, "a");
 } END_TEST
+/*
+START_TEST(test_update_infix_stacks_a_plus_b){
+    uint8_t variable_stack[1000] = {0};
+    uint8_t operator_stack[1000] = {0};
+    const char input[] = "a+b";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        update_infix_stacks(variable_stack, operator_stack input[i]);
+    }
+    
+    ck_assert_str_eq((char*)variable_stack, "ab+");
+} END_TEST*/
 
 Suite * make_update_infix_stacks_suite(void){
     Suite *s;
