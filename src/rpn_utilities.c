@@ -9,6 +9,19 @@ bool is_valid_operator(uint8_t c){
     return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '^');
 }
 
+int16_t operator_precedence(uint8_t c){
+    if (c == '+') return 5; 
+    if (c == '-') return 4; 
+    if (c == '*') return 3; 
+    if (c == '/') return 2;
+    if (c == '^') return 1;
+    return 0;
+}
+
+bool is_right_associative(uint8_t c){
+    return (c == '^');
+}
+
 bool is_parenthesis(uint8_t c){
     return (c == '(') || (c == ')');
 }
