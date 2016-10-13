@@ -14,6 +14,10 @@ START_TEST(test_convert_infix_to_rpn_stacks_a_plus_b){
     ck_assert_str_eq(infix_to_rpn("a+b"), "ab+");
 } END_TEST
 
+START_TEST(test_convert_infix_to_rpn_stacks_a_plus_b_minus_c){
+    ck_assert_str_eq(infix_to_rpn("a+b-c"), "abc-+");
+} END_TEST
+
 
 
 
@@ -26,6 +30,7 @@ Suite * make_convert_infix_to_rpn_suite(void){
 
     tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_simple);
     tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_a_plus_b);
+    tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_a_plus_b_minus_c);
     suite_add_tcase(s, tc_core);
 
     return s;
