@@ -22,6 +22,10 @@ START_TEST(test_convert_infix_to_rpn_obey_order_of_operations){
     ck_assert_str_eq(infix_to_rpn("l/m^n*o-p"), "lmn^/o*p-");
 } END_TEST
 
+START_TEST(test_convert_infix_to_rpn_expr_with_parentheses){
+    ck_assert_str_eq(infix_to_rpn("((v/w)^x)*(y-z)"), "vw/x^yz-*");
+} END_TEST
+
 
 Suite * make_convert_infix_to_rpn_suite(void){
     Suite *s;
@@ -35,6 +39,7 @@ Suite * make_convert_infix_to_rpn_suite(void){
     tcase_add_test(tc_core, test_convert_infix_to_rpn_stacks_a_plus_b_minus_c);
     tcase_add_test(tc_core,\
                    test_convert_infix_to_rpn_obey_order_of_operations);
+    tcase_add_test(tc_core, test_convert_infix_to_rpn_expr_with_parentheses);
     suite_add_tcase(s, tc_core);
 
     return s;
