@@ -55,8 +55,6 @@ START_TEST(test_update_infix_stacks_a_plus_b_minus_c){
     for (uint16_t i = 0; i < strlen(input); i++){
         update_infix_stacks(&variable_stack, &symbol_stack, input[i]);
     }
-    char *final_expr = calloc(variable_stack.length + symbol_stack.length + 1,\
-                              sizeof(char));
                               
     for (int16_t i = symbol_stack.length-1; i >= 0; i--){
         variable_stack.content[variable_stack.length] = symbol_stack.content[i];
@@ -65,7 +63,6 @@ START_TEST(test_update_infix_stacks_a_plus_b_minus_c){
     
     ck_assert_str_eq((char*)variable_stack.content, "abc-+");
     ck_assert_int_eq(variable_stack.length, 5);
-    free(final_expr);
 } END_TEST
 
 START_TEST(test_update_infix_stacks_a_plus_b_minus_c_with_paren){
@@ -75,8 +72,6 @@ START_TEST(test_update_infix_stacks_a_plus_b_minus_c_with_paren){
     for (uint16_t i = 0; i < strlen(input); i++){
         update_infix_stacks(&variable_stack, &symbol_stack, input[i]);
     }
-    char *final_expr = calloc(variable_stack.length + symbol_stack.length + 1,\
-                              sizeof(char));
                               
     for (int16_t i = symbol_stack.length-1; i >= 0; i--){
         variable_stack.content[variable_stack.length] = symbol_stack.content[i];
@@ -85,7 +80,6 @@ START_TEST(test_update_infix_stacks_a_plus_b_minus_c_with_paren){
     
     ck_assert_str_eq((char*)variable_stack.content, "ab+c-");
     ck_assert_int_eq(variable_stack.length, 5);
-    free(final_expr);
 } END_TEST
 
 START_TEST(test_update_infix_stacks_obey_order_of_operations){
@@ -95,8 +89,6 @@ START_TEST(test_update_infix_stacks_obey_order_of_operations){
     for (uint16_t i = 0; i < strlen(input); i++){
         update_infix_stacks(&variable_stack, &symbol_stack, input[i]);
     }
-    char *final_expr = calloc(variable_stack.length + symbol_stack.length + 1,\
-                              sizeof(char));
                               
     for (int16_t i = symbol_stack.length-1; i >= 0; i--){
         variable_stack.content[variable_stack.length] = symbol_stack.content[i];
@@ -105,7 +97,6 @@ START_TEST(test_update_infix_stacks_obey_order_of_operations){
     
     ck_assert_str_eq((char*)variable_stack.content, "lmn^/o*p-");
     ck_assert_int_eq(variable_stack.length, 9);
-    free(final_expr);
 } END_TEST
 
 START_TEST(test_update_infix_stacks_expr_with_parentheses){
@@ -115,8 +106,6 @@ START_TEST(test_update_infix_stacks_expr_with_parentheses){
     for (uint16_t i = 0; i < strlen(input); i++){
         update_infix_stacks(&variable_stack, &symbol_stack, input[i]);
     }
-    char *final_expr = calloc(variable_stack.length + symbol_stack.length + 1,\
-                              sizeof(char));
                               
     for (int16_t i = symbol_stack.length-1; i >= 0; i--){
         variable_stack.content[variable_stack.length] = symbol_stack.content[i];
@@ -125,7 +114,6 @@ START_TEST(test_update_infix_stacks_expr_with_parentheses){
     
     ck_assert_str_eq((char*)variable_stack.content, "vw/x^yz-*");
     ck_assert_int_eq(variable_stack.length, 9);
-    free(final_expr);
 } END_TEST
 
 START_TEST(test_update_infix_stacks_complex_expression){
@@ -135,8 +123,6 @@ START_TEST(test_update_infix_stacks_complex_expression){
     for (uint16_t i = 0; i < strlen(input); i++){
         update_infix_stacks(&variable_stack, &symbol_stack, input[i]);
     }
-    char *final_expr = calloc(variable_stack.length + symbol_stack.length + 1,\
-                              sizeof(char));
                               
     for (int16_t i = symbol_stack.length-1; i >= 0; i--){
         variable_stack.content[variable_stack.length] = symbol_stack.content[i];
@@ -145,7 +131,6 @@ START_TEST(test_update_infix_stacks_complex_expression){
     
     ck_assert_str_eq((char*)variable_stack.content, "ag+ba-c+cedf^*+^*");
     ck_assert_int_eq(variable_stack.length, 17);
-    free(final_expr);
 } END_TEST
 
 
