@@ -12,7 +12,7 @@ TEST_SOURCES := $(shell find $(TESTDIR) -type f -name *.c)
 TEST_OBJECTS := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TEST_SOURCES:.c=.o))
 TEST_OBJECTS += $(OBJECTS)
 
-CFLAGS := -std=c99 -Wall -Wextra -pedantic -Werror -Wshadow -Wstrict-overflow -fstack-protector -O2
+CFLAGS := -std=c99 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wstrict-overflow -fstack-protector -O2
 LIBS := -lcheck -lm -lsubunit -lrt -lpthread
 INC := -I include
 

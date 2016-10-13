@@ -31,7 +31,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
     }
     else if (is_symbol(command)){
         if (command == ')'){
-            while (true){
+            while (symbol->length > 0){
                 uint8_t c = symbol->content[symbol->length - 1];
                 if(is_valid_operator(c)){
                     append(variable, c);

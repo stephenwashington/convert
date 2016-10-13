@@ -26,6 +26,11 @@ START_TEST(test_convert_infix_to_rpn_expr_with_parentheses){
     ck_assert_str_eq(infix_to_rpn("((v/w)^x)*(y-z)"), "vw/x^yz-*");
 } END_TEST
 
+START_TEST(test_convert_infix_to_rpn_complex_expression){
+    ck_assert_str_eq(infix_to_rpn("(a+g)*(((b-a)+c)^(c+(e*(d^f)))))"),\
+                                   "ag+ba-c+cedf^*+^*"); 
+} END_TEST
+
 
 Suite * make_convert_infix_to_rpn_suite(void){
     Suite *s;
@@ -40,6 +45,7 @@ Suite * make_convert_infix_to_rpn_suite(void){
     tcase_add_test(tc_core,\
                    test_convert_infix_to_rpn_obey_order_of_operations);
     tcase_add_test(tc_core, test_convert_infix_to_rpn_expr_with_parentheses);
+    tcase_add_test(tc_core, test_convert_infix_to_rpn_complex_expression);
     suite_add_tcase(s, tc_core);
 
     return s;
