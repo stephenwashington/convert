@@ -56,3 +56,19 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
         } else append(symbol, command);
     }
 }
+
+const char * infix_to_rpn(const char * expr){
+    struct stack variable_stack = { .content = {0}, .length = 0};
+    struct stack symbol_stack = { .content = {0}, .length = 0};
+    for (uint16_t i = 0; i < strlen(expr); i++){
+        update_infix_stacks(&variable_stack, &symbol_stack, expr[i]);
+    }
+    
+    for (int16_t i = symbol_stack.length-1; i >= 0; i--){
+        variable_stack.content[variable_stack.length] = symbol_stack.content[i];
+        variable_stack.length++;
+    }
+    char *result = calloc(1000, sizeof(char));
+    memcpy(result, variable_stack.content, 1000);
+    return result;
+}
