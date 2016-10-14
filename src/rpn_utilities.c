@@ -38,11 +38,11 @@ bool is_valid_char(uint8_t c){
     return is_variable(c) || is_symbol(c);
 }
 
-bool is_valid_expression(uint8_t *exp, size_t len){
+bool is_valid_expression(const char *exp){
     int16_t variable_count = 0;
     int16_t operator_count = 0;
     int16_t paren_count = 0;
-    for (uint16_t i = 0; i < len; i++){
+    for (uint16_t i = 0; i < strlen(exp); i++){
         if (!is_valid_char(exp[i])){
             return false;
         }

@@ -5,59 +5,40 @@
 #include "rpn_unit_tests.h"
 
 START_TEST(test_is_valid_expression_a){
-    uint8_t exp[1] = {'a'};
-    ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), true);
+    ck_assert_int_eq(is_valid_expression("a"), true);
 } END_TEST
 
 START_TEST(test_is_valid_expression_A){
-    uint8_t exp[1] = {'A'};
-    ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), false);
+    ck_assert_int_eq(is_valid_expression("A"), false);
 } END_TEST
 
 START_TEST(test_is_valid_expression_aplusb){
-    uint8_t exp[3] = {'a', '+', 'b'};
-    ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), true);
+    ck_assert_int_eq(is_valid_expression("a+b"), true);
 } END_TEST
 
 START_TEST(test_is_valid_expression_ab){
-    uint8_t exp[2] = {'a', 'b'};
-    ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), false);
+    ck_assert_int_eq(is_valid_expression("ab"), false);
 } END_TEST
 
 START_TEST(test_is_valid_expression_negb){
-    uint8_t exp[2] = {'-', 'b'};
-    ck_assert_int_eq(is_valid_expression(exp, sizeof(exp)), false);
+    ck_assert_int_eq(is_valid_expression("-b"), false);
 } END_TEST
 
 START_TEST(test_is_valid_expression_complex){
-    uint8_t exp1[5] = {'a', '+', 'b', '^', 'c'};
-    ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), true);
-    
-    uint8_t exp2[5] = {'(', 'a', '+', 'b', ')'};
-    ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), true);
-    
-    uint8_t exp3[7] = {'(', 'a', '+', 'b', ')', '-', 'c'};
-    ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), true);
-    
-    uint8_t exp4[9] = {'l', '/', 'm', '^', 'n', '*', 'o', '-', 'p'};
-    ck_assert_int_eq(is_valid_expression(exp4, sizeof(exp4)), true);
-    
-    uint8_t exp5[17] = {'a', 'g', '+', 'b', 'a', '-', 'c', '+', 'c', 'e', 'd',\
-                        'f', '^', '*', '+', '^', '*'};
-    ck_assert_int_eq(is_valid_expression(exp5, sizeof(exp5)), true);
+    ck_assert_int_eq(is_valid_expression("a+b^c"), true);
+    ck_assert_int_eq(is_valid_expression("(a+b)"), true);
+    ck_assert_int_eq(is_valid_expression("(a+b)-c"), true);
+    ck_assert_int_eq(is_valid_expression("l/m^n*o-p"), true);
+    ck_assert_int_eq(is_valid_expression("ag+ba-c+cedf^*+^*"), true);
     
 } END_TEST
 
 START_TEST(test_is_valid_expression_various_false){
-    uint8_t exp1[4] = {'(', 'a', '+', 'b'};
-    ck_assert_int_eq(is_valid_expression(exp1, sizeof(exp1)), false);
-    
-    uint8_t exp2[4] = {'a', '+', 'b', '^'};
-    ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), false);
-    
+    ck_assert_int_eq(is_valid_expression("(a+b"), false);
+    ck_assert_int_eq(is_valid_expression("a+b^"), false);
+
     // This is taken as false beacuse the expression is empty
-    uint8_t exp3[2] = {'(', ')'};
-    ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), false);
+    ck_assert_int_eq(is_valid_expression("()"), false);
     
 } END_TEST
 
@@ -68,12 +49,10 @@ START_TEST(test_is_valid_expression_various_false){
  */
 
 START_TEST(test_is_valid_expression_weird_cases){
-    uint8_t exp2[5] = {'a', '+', 'b', 'c', '^'};
-    ck_assert_int_eq(is_valid_expression(exp2, sizeof(exp2)), true);
+    ck_assert_int_eq(is_valid_expression("a+bc^"), true);
     
     // again, false because it's empty, not beacuse of the syntax itself
-    uint8_t exp3[2] = {')', '('};
-    ck_assert_int_eq(is_valid_expression(exp3, sizeof(exp3)), false);
+    ck_assert_int_eq(is_valid_expression(")("), false);
     
 } END_TEST
 

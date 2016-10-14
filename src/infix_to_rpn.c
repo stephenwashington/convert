@@ -24,6 +24,28 @@ void pop_stack(struct stack *s){
     s->length--;
 }
 
+bool is_valid_infix_expr(const char *expr){
+    int16_t variable_count = 0;
+    int16_t operator_count = 0;
+    int16_t left_paren_count = 0;
+    int16_t right_paren_count = 0;
+    for (uint16_t i = 0; i < strlen(expr); i++){
+        if (is_variable(expr[i])){
+            variable_count++;
+        } else if (is_valid_operator(expr[i])){
+            operator_count++;
+        } else if (expr[i] == '(') {
+            left_paren_count++;
+        } else if (expr[i] == ')') {
+            right_paren_count++;
+        } else return false;
+    }
+    
+    return (variable_count - 1 == operator_count) && \
+           ((left_paren_count + right_paren_count) % 2 == 0) && \
+           (left_paren_count == right_paren_count);
+}
+
 void update_infix_stacks(struct stack *variable, struct stack *symbol,\
                             uint8_t command){
     if (is_variable(command)){
@@ -31,8 +53,9 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
     }
     else if (is_symbol(command)){
         if (command == ')'){
-            while (symbol->length > 0){
-                uint8_t c = symbol->content[symbol->length - 1];
+            uint8_t c = symbol->content[symbol->length - 1];
+            while (symbol->length > 0 && is_valid_operator(c)){
+                c = symbol->content[symbol->length - 1];
                 if(is_valid_operator(c)){
                     append(variable, c);
                     pop_stack(symbol);
@@ -42,6 +65,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
                     if (c == '(') break;
                 }
             }
+            
         } else if (is_valid_operator(command) && symbol->content[symbol->length - 1]) {
             uint8_t prev_operator = symbol->content[symbol->length - 1];
             while (symbol->length > 0 && !is_parenthesis(prev_operator)){
@@ -60,6 +84,12 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
 const char * infix_to_rpn(const char * expr){
     struct stack variable_stack = { .content = {0}, .length = 0};
     struct stack symbol_stack = { .content = {0}, .length = 0};
+    
+    if (!is_valid_infix_expr(expr)){
+        fprintf(stderr, "Invalid expression\n");
+        exit(EXIT_FAILURE);
+    }
+    
     for (uint16_t i = 0; i < strlen(expr); i++){
         update_infix_stacks(&variable_stack, &symbol_stack, expr[i]);
     }
@@ -71,11 +101,12 @@ const char * infix_to_rpn(const char * expr){
     
     for (int16_t i = 0; i < variable_stack.length; i++){
         if (is_parenthesis(variable_stack.content[i])){
-            //fprintf(stderr, "Mismatched parenthesis in expression");
+            fprintf(stderr, "Mismatched parentheses in expression\n");
             exit(EXIT_FAILURE);
         }
     }
     char *result = calloc(1000, sizeof(char));
     memcpy(result, variable_stack.content, 1000);
+    printf("%s\n",result);
     return result;
 }
