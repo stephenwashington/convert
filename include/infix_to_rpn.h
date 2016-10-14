@@ -13,3 +13,4 @@ bool should_pop_stack(uint8_t command, uint8_t prev_command);
 void append(struct stack *s, uint8_t c);
 void pop_stack(struct stack *s);
 const char * infix_to_rpn(const char * expr);
+bool is_valid_infix_expr(const char *expr);
