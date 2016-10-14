@@ -12,7 +12,7 @@ int main(void){
     srunner_add_suite(sr, make_is_parenthesis_suite());
     srunner_add_suite(sr, make_is_valid_operator_suite());
     srunner_add_suite(sr, make_is_variable_suite());
-    srunner_add_suite(sr, make_update_rpn_stack_suite());
+    //srunner_add_suite(sr, make_update_rpn_stack_suite());
     srunner_add_suite(sr, make_rpn_to_infix_suite());
     srunner_add_suite(sr, make_update_infix_stacks_suite());
     srunner_add_suite(sr, make_convert_infix_to_rpn_suite());

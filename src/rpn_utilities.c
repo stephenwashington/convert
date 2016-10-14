@@ -5,6 +5,16 @@
 #include <ctype.h>
 #include "rpn_utilities.h"
 
+void append(struct stack *s, uint8_t c){
+    memcpy(&s->content[s->length], &c, 1);
+    s->length++;
+}
+
+void pop(struct stack *s){
+    s->content[s->length] = '0';
+    s->length--;
+}
+
 bool is_valid_operator(uint8_t c){
     return (c == '+') || (c == '-') || (c == '*') || (c == '/') || (c == '^');
 }

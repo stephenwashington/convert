@@ -5,19 +5,31 @@
 #include "rpn_utilities.h"
 #include "rpn_to_infix.h"
 
-
-int16_t pop(uint8_t char_slice[1000], uint8_t expr[1000]){
-    int16_t expr_length = 0;
-    memcpy(expr, char_slice, strlen((char*)char_slice));
-    for (int16_t i = 0; i < 1000; i++){
-        if (char_slice[i] == 0){
-            break;
-        }
-        expr_length++;
-        char_slice[i] = 0;
+bool is_valid_rpn_expr(const char *expr){
+    int16_t variable_count = 0;
+    int16_t operator_count = 0;
+    for (uint16_t i = 0; i < strlen(expr); i++){
+        if (is_variable(expr[i])){
+            variable_count++;
+        } else if (is_valid_operator(expr[i])){
+            operator_count++;
+        } else return false;
     }
     
-    return expr_length;
+    return (variable_count - 1 == operator_count);
+}
+
+
+char * combine_expr(char *expr_left, char *expr_right, uint8_t command){
+    char *expr = calloc(strlen(expr_left) + strlen(expr_right) +3, sizeof(char));
+    const char *left_paren = "(";
+    const char *right_paren = ")";
+    memcpy(expr, left_paren, 1);
+    memcpy(&expr[1], expr_left, strlen(expr_left));
+    memcpy(&expr[strlen(expr_left) + 1], &command, 1);
+    memcpy(&expr[strlen(expr_left) + 2], expr_right, strlen(expr_right));
+    memcpy(&expr[strlen(expr_left) + strlen(expr_right) + 2], right_paren, 1);
+    return expr;
 }
 
 /*  Given a stack, our position in the stack, and a command, execute the command
@@ -28,36 +40,30 @@ int16_t pop(uint8_t char_slice[1000], uint8_t expr[1000]){
  *      3. Append the result, wrapped in parentheses, to the stack
  *  Otherwise, complain that we got a bad character and exit 
  */
-
-void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
+ 
+void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command){
     if (is_variable(command)){
-        stack[*len][0] = command;    
-        (*len)++;
+        sarr[*location].content[0] = command;    
+        (*location)++;
     } else if (is_valid_operator(command)){
     
         // Need at least two expressions on the stack to execute any operator
-        if ((*len) < 2){
+        if ((*location) < 2){
             //fprintf(stderr, "Not enough expressions to perform operation: %c\n", command);
             exit(EXIT_FAILURE);
         }
         
-        uint8_t expr_left[1000] = {0};
-        uint8_t expr_right[1000] = {0};
-        uint8_t new_expr[1000] = {0};
-        int16_t expr_right_len = pop(stack[(*len) - 1], expr_right);
-        int16_t expr_left_len = pop(stack[(*len) - 2], expr_left);
-        uint8_t left_paren = '(';
-        uint8_t right_paren = ')';
+        char *expr_left = (char*)sarr[(*location) - 2].content;
+        char *expr_right = (char*)sarr[(*location) - 1].content;
+        char *new_expr = combine_expr(expr_left, expr_right, command);
         
-        memcpy(new_expr, &left_paren, 1);
-        memcpy(&new_expr[1], expr_left, expr_left_len);
-        memcpy(&new_expr[expr_left_len+1], &command, 1);
-        memcpy(&new_expr[expr_left_len+2], expr_right, expr_right_len);
-        memcpy(&new_expr[expr_left_len+expr_right_len+2], &right_paren, 1);
-        (*len) -= 2;
-        memcpy(stack[*len], new_expr, 1000);
+        sarr[(*location) - 1] = (struct stack){{0}, 0};;
+        sarr[(*location) - 2] = (struct stack){{0}, 0};;
 
-        (*len)++;
+        (*location) -= 2;
+        memcpy(sarr[*location].content, new_expr, 1000);
+        (*location)++;
+        free(new_expr);
     } else {
         //fprintf(stderr,"Invalid character detected: %c\n",command);
         exit(EXIT_FAILURE);
@@ -65,21 +71,30 @@ void update_rpn_stack(uint8_t stack[][1000], int16_t *len, uint8_t command){
 }
 
 const char * rpn_to_infix(const char * expr){
-    uint8_t stack[50][1000] = {0};
-    int16_t stack_length = 0;
+    if (!is_valid_rpn_expr(expr)){
+        //fprintf(stderr, "Invalid expression\n");
+        exit(EXIT_FAILURE);
+    }
+
+    struct stack stack_arr[50];
+    int16_t location = 0;
+    for (int16_t i = 0; i < 50; i++){
+        stack_arr[i] = (struct stack){{0}, 0};
+    }
+    
     for (uint16_t i = 0; i < strlen(expr); i++){
-        update_rpn_stack(stack, &stack_length, expr[i]);
+        update_rpn_stack(stack_arr, &location, expr[i]);
     }
     
     //Check to make sure we only have one expression remaining
     for (int16_t i = 1; i < 50; i++){
-        if (stack[i][0] != 0){
+        if (stack_arr[i].content[0] != 0){
             //fprintf(stderr, "Too many variables in expression\n");
             exit(EXIT_FAILURE);
         }
     }
 
     char *result = calloc(1000, sizeof(char));
-    memcpy(result, stack[0], 1000);
+    memcpy(result, stack_arr[0].content, 1000);
     return result;
 }

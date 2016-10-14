@@ -2,6 +2,14 @@
 #include <stdbool.h>
 #pragma once
 
+struct stack{
+    uint8_t content[1000];
+    int16_t length;
+};
+
+void append(struct stack *s, uint8_t c);
+void pop(struct stack *s);
+
 bool is_valid_char(uint8_t c);
 bool is_valid_expression(const char *exp);
 bool is_parenthesis(uint8_t c);
