@@ -42,7 +42,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
                     if (c == '(') break;
                 }
             }
-        } else if (is_valid_operator(command)) {
+        } else if (is_valid_operator(command) && symbol->content[symbol->length - 1]) {
             uint8_t prev_operator = symbol->content[symbol->length - 1];
             while (symbol->length > 0 && !is_parenthesis(prev_operator)){
                 prev_operator = symbol->content[symbol->length - 1];
@@ -67,6 +67,13 @@ const char * infix_to_rpn(const char * expr){
     for (int16_t i = symbol_stack.length-1; i >= 0; i--){
         variable_stack.content[variable_stack.length] = symbol_stack.content[i];
         variable_stack.length++;
+    }
+    
+    for (int16_t i = 0; i < variable_stack.length; i++){
+        if (is_parenthesis(variable_stack.content[i])){
+            //fprintf(stderr, "Mismatched parenthesis in expression");
+            exit(EXIT_FAILURE);
+        }
     }
     char *result = calloc(1000, sizeof(char));
     memcpy(result, variable_stack.content, 1000);

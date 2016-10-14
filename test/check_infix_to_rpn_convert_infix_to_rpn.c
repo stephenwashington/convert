@@ -31,6 +31,10 @@ START_TEST(test_convert_infix_to_rpn_complex_expression){
                                    "ag+ba-c+cedf^*+^*"); 
 } END_TEST
 
+START_TEST(test_convert_infix_to_rpn_mismatched_parentheses){
+    infix_to_rpn("(a+g)*(((b-a)+c)^(c+(e*(d^f))())");
+} END_TEST
+
 
 Suite * make_convert_infix_to_rpn_suite(void){
     Suite *s;
@@ -46,6 +50,9 @@ Suite * make_convert_infix_to_rpn_suite(void){
                    test_convert_infix_to_rpn_obey_order_of_operations);
     tcase_add_test(tc_core, test_convert_infix_to_rpn_expr_with_parentheses);
     tcase_add_test(tc_core, test_convert_infix_to_rpn_complex_expression);
+    tcase_add_exit_test(tc_core,\
+                        test_convert_infix_to_rpn_mismatched_parentheses,\
+                        EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 
     return s;
