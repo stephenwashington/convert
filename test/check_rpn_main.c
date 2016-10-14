@@ -7,12 +7,7 @@ int main(void){
     int16_t number_failed;
     SRunner *sr;
 
-    sr = srunner_create(make_is_valid_char_suite());
-    srunner_add_suite(sr, make_is_valid_expression_suite());
-    srunner_add_suite(sr, make_is_parenthesis_suite());
-    srunner_add_suite(sr, make_is_valid_operator_suite());
-    srunner_add_suite(sr, make_is_variable_suite());
-    //srunner_add_suite(sr, make_update_rpn_stack_suite());
+    sr = srunner_create(make_rpn_utilities_suite());
     srunner_add_suite(sr, make_rpn_to_infix_suite());
     srunner_add_suite(sr, make_update_infix_stacks_suite());
     srunner_add_suite(sr, make_convert_infix_to_rpn_suite());

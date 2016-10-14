@@ -11,7 +11,7 @@ bool is_valid_rpn_expr(const char *expr){
     for (uint16_t i = 0; i < strlen(expr); i++){
         if (is_variable(expr[i])){
             variable_count++;
-        } else if (is_valid_operator(expr[i])){
+        } else if (is_operator(expr[i])){
             operator_count++;
         } else return false;
     }
@@ -45,7 +45,7 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
     if (is_variable(command)){
         sarr[*location].content[0] = command;    
         (*location)++;
-    } else if (is_valid_operator(command)){
+    } else if (is_operator(command)){
     
         // Need at least two expressions on the stack to execute any operator
         if ((*location) < 2){

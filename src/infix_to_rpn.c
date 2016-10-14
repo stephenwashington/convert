@@ -22,7 +22,7 @@ bool is_valid_infix_expr(const char *expr){
     for (uint16_t i = 0; i < strlen(expr); i++){
         if (is_variable(expr[i])){
             variable_count++;
-        } else if (is_valid_operator(expr[i])){
+        } else if (is_operator(expr[i])){
             operator_count++;
         } else if (expr[i] == '(') {
             left_paren_count++;
@@ -44,9 +44,9 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
     else if (is_symbol(command)){
         if (command == ')'){
             uint8_t c = symbol->content[symbol->length - 1];
-            while (symbol->length > 0 && is_valid_operator(c)){
+            while (symbol->length > 0 && is_operator(c)){
                 c = symbol->content[symbol->length - 1];
-                if(is_valid_operator(c)){
+                if(is_operator(c)){
                     append(variable, c);
                     pop(symbol);
                 }
@@ -56,7 +56,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
                 }
             }
             
-        } else if (is_valid_operator(command) && symbol->content[symbol->length - 1]) {
+        } else if (is_operator(command) && symbol->content[symbol->length - 1]) {
             uint8_t prev_operator = symbol->content[symbol->length - 1];
             while (symbol->length > 0 && !is_parenthesis(prev_operator)){
                 prev_operator = symbol->content[symbol->length - 1];
