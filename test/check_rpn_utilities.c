@@ -11,7 +11,7 @@ START_TEST(test_rpn_utilities_a){
     ck_assert_int_eq(is_symbol('a'), false);
     ck_assert_int_eq(is_valid_char('a'), true);
     ck_assert_int_eq(is_right_associative('a'), false);
-    ck_assert_int_eq(operator_precedence('a'), 0);
+    ck_assert_int_eq(operator_precedence('a'), 6);
 } END_TEST
 
 START_TEST(test_rpn_utilities_A){
@@ -21,7 +21,7 @@ START_TEST(test_rpn_utilities_A){
     ck_assert_int_eq(is_symbol('A'), false);
     ck_assert_int_eq(is_valid_char('A'), false);
     ck_assert_int_eq(is_right_associative('A'), false);
-    ck_assert_int_eq(operator_precedence('A'), 0);
+    ck_assert_int_eq(operator_precedence('A'), 6);
 } END_TEST
 
 START_TEST(test_rpn_utilities_number){
@@ -31,7 +31,7 @@ START_TEST(test_rpn_utilities_number){
     ck_assert_int_eq(is_symbol('3'), false);
     ck_assert_int_eq(is_valid_char('3'), false);
     ck_assert_int_eq(is_right_associative('3'), false);
-    ck_assert_int_eq(operator_precedence('3'), 0);
+    ck_assert_int_eq(operator_precedence('3'), 6);
 } END_TEST
 
 START_TEST(test_rpn_utilities_plus){
@@ -61,7 +61,7 @@ START_TEST(test_rpn_utilities_left_paren){
     ck_assert_int_eq(is_symbol('('), true);
     ck_assert_int_eq(is_valid_char('('), true);
     ck_assert_int_eq(is_right_associative('('), false);
-    ck_assert_int_eq(operator_precedence('('), 0);
+    ck_assert_int_eq(operator_precedence('('), 6);
 } END_TEST
 
 START_TEST(test_rpn_utilities_percent){
@@ -71,7 +71,7 @@ START_TEST(test_rpn_utilities_percent){
     ck_assert_int_eq(is_symbol('%'), false);
     ck_assert_int_eq(is_valid_char('%'), false);
     ck_assert_int_eq(is_right_associative('%'), false);
-    ck_assert_int_eq(operator_precedence('%'), 0);
+    ck_assert_int_eq(operator_precedence('%'), 6);
 } END_TEST
 
 Suite * make_rpn_utilities_suite(void){

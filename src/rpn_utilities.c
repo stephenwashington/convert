@@ -21,7 +21,7 @@ int16_t operator_precedence(uint8_t c){
     if (c == '*') return 3; 
     if (c == '/') return 2;
     if (c == '^') return 1;
-    return 0;
+    return 6;
 }
 
 bool is_operator(uint8_t c){

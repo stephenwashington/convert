@@ -2,8 +2,10 @@
 #include <stdbool.h>
 #pragma once
 
+#define MAX_STACK_LENGTH 1000
+
 struct stack{
-    uint8_t content[1000];
+    uint8_t content[MAX_STACK_LENGTH];
     int16_t length;
 };
 
