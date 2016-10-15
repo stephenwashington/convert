@@ -25,7 +25,7 @@ START_TEST(test_rpn_stack_helper_functions_append_multiple){
 
 START_TEST(test_rpn_stack_helper_functions_append_invalid_characters){
     struct stack s = { .content = {0}, .length = 0};
-    const char * input = "AB";
+    const char * input = "aBc";
     for (uint16_t i = 0; i < strlen(input); i++){
         append(&s, input[i]);
     }
@@ -37,6 +37,15 @@ START_TEST(test_rpn_stack_helper_functions_append_overflow){
     for (uint16_t i = 0; i < 1001; i++){
         append(&s, input[0]);
     }
+} END_TEST
+
+START_TEST(test_rpn_stack_helper_functions_append_normal_input){
+    struct stack s = { .content = {0}, .length = 0};
+    const char * input = "(a+g)*(((b-a)+c)^(c+(e*(d^f))))";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        append(&s, input[i]);
+    }
+    ck_assert_int_eq(s.length, 31);
 } END_TEST
 
 
@@ -55,6 +64,7 @@ Suite * make_rpn_stack_helper_functions_suite(void){
     tcase_add_exit_test(tc_core,\
                         test_rpn_stack_helper_functions_append_overflow,\
                         EXIT_FAILURE);
+    tcase_add_test(tc_core, test_rpn_stack_helper_functions_append_normal_input);
     suite_add_tcase(s, tc_core);
 
     return s;
