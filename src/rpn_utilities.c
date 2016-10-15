@@ -20,7 +20,7 @@ void append(struct stack *s, uint8_t c){
 }
 
 void pop(struct stack *s){
-    s->content[s->length] = '\0';
+    s->content[s->length - 1] = '\0';
     s->length--;
 }
 

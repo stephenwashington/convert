@@ -6,4 +6,5 @@ Suite * make_update_rpn_stack_suite(void);
 Suite * make_rpn_to_infix_suite(void);
 Suite * make_update_infix_stacks_suite(void);
 Suite * make_convert_infix_to_rpn_suite(void);
-Suite * make_rpn_stack_helper_functions_suite(void);
+Suite * make_rpn_stack_helper_functions_append_suite(void);
+Suite * make_rpn_stack_helper_functions_pop_suite(void);

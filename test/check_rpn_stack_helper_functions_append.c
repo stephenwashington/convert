@@ -49,11 +49,11 @@ START_TEST(test_rpn_stack_helper_functions_append_normal_input){
 } END_TEST
 
 
-Suite * make_rpn_stack_helper_functions_suite(void){
+Suite * make_rpn_stack_helper_functions_append_suite(void){
     Suite *s;
     TCase *tc_core;
 
-    s = suite_create("rpn_stack_helper_functions");
+    s = suite_create("rpn_stack_helper_functions_append");
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, test_rpn_stack_helper_functions_append_single);
