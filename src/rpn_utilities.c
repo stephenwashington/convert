@@ -7,6 +7,10 @@
 #include "rpn_utilities.h"
 
 void append(struct stack *s, uint8_t c){
+    if (s->length == 1000){
+        //fprintf(stderr, "Stack overflow error!\n");
+        exit(EXIT_FAILURE);
+    }
     if (!is_valid_char(c)){
         //fprintf(stderr, "Cannot append this character: %c\n", c);
         exit(EXIT_FAILURE);
