@@ -1,11 +1,16 @@
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>
 #include "rpn_utilities.h"
 
 void append(struct stack *s, uint8_t c){
+    if (!is_valid_char(c)){
+        //fprintf(stderr, "Cannot append this character: %c\n", c);
+        exit(EXIT_FAILURE);
+    }
     memcpy(&s->content[s->length], &c, 1);
     s->length++;
 }

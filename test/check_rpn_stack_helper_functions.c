@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <check.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "rpn_utilities.h"
 #include "rpn_unit_tests.h"
 
@@ -22,6 +23,14 @@ START_TEST(test_rpn_stack_helper_functions_add_multiple){
     ck_assert_int_eq(s.length, 2);
 } END_TEST
 
+START_TEST(test_rpn_stack_helper_functions_invalid_characters){
+    struct stack s = { .content = {0}, .length = 0};
+    const char * input = "AB";
+    for (uint16_t i = 0; i < strlen(input); i++){
+        append(&s, input[i]);
+    }
+} END_TEST
+
 
 Suite * make_rpn_stack_helper_functions_suite(void){
     Suite *s;
@@ -32,6 +41,9 @@ Suite * make_rpn_stack_helper_functions_suite(void){
 
     tcase_add_test(tc_core, test_rpn_stack_helper_functions_add_single);
     tcase_add_test(tc_core, test_rpn_stack_helper_functions_add_multiple);
+    tcase_add_exit_test(tc_core,\
+                        test_rpn_stack_helper_functions_invalid_characters,\
+                        EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 
     return s;
