@@ -42,7 +42,8 @@ Suite * make_rpn_to_infix_suite(void){
     tcase_add_exit_test(tc_core, test_rpn_to_infix_ab_throw_error,EXIT_FAILURE);
     tcase_add_test(tc_core, test_rpn_to_infix_medium_difficulty);
     tcase_add_test(tc_core, test_rpn_to_infix_hard_difficulty);
-    tcase_add_exit_test(tc_core, test_rpn_to_infix_too_many_expressions, EXIT_FAILURE);
+    tcase_add_exit_test(tc_core, test_rpn_to_infix_too_many_expressions,\
+                        EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 
     return s;

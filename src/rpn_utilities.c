@@ -20,6 +20,10 @@ void append(struct stack *s, uint8_t c){
 }
 
 void pop(struct stack *s){
+    if (s->length == 0){
+        //fprintf(stderr, "Attempting to pop off of empty stack");
+        exit(EXIT_FAILURE);
+    }
     s->content[s->length - 1] = '\0';
     s->length--;
 }
