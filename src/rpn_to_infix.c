@@ -5,6 +5,18 @@
 #include "rpn_utilities.h"
 #include "rpn_to_infix.h"
 
+/* Helper function that returns whether expr is a valid RPN expression
+ * 
+ * An RPN expression is valid if the number of variables (letters) is one more
+ * than the number of operators ( / + - * ^ )
+ * 
+ * Note that this function does not determine whether the expression is a
+ * *syntactically* valid function (i.e. it will return true for "a+b") - it is
+ * only supposed to be a first-pass check that catches invalid characters. 
+ * Whether expr is syntactically valid or not will come about during the 
+ * conversion process
+ */
+
 bool is_valid_rpn_expr(const char *expr){
     int16_t variable_count = 0;
     int16_t operator_count = 0;
@@ -19,9 +31,13 @@ bool is_valid_rpn_expr(const char *expr){
     return (variable_count - 1 == operator_count);
 }
 
+/* Helper function that combines two expressions with an operator and wrapper 
+ * parentheses (see the documentation for update_rpn_stack below)
+ */
 
 char * combine_expr(char *expr_left, char *expr_right, uint8_t command){
-    char *expr = calloc(strlen(expr_left) + strlen(expr_right) +3, sizeof(char));
+    char *expr = calloc(strlen(expr_left) + strlen(expr_right) + 3,\
+                 sizeof(char));
     const char *left_paren = "(";
     const char *right_paren = ")";
     memcpy(expr, left_paren, 1);
@@ -32,13 +48,20 @@ char * combine_expr(char *expr_left, char *expr_right, uint8_t command){
     return expr;
 }
 
-/*  Given a stack, our position in the stack, and a command, execute the command
- *  if command is a variable, append it to the end of the stack    
- *  if command is an operator
+/*  Given a stack array, our position in the stack array, and a command, execute
+*   the command
+ *  - if command is a variable, append it to the end of the stack array and 
+ *    increment location    
+ *  - if command is an operator, call combine_expr, which will:
  *      1. pop off the two items at the right end of the stack
  *      2. Insert the operator between them
  *      3. Append the result, wrapped in parentheses, to the stack
- *  Otherwise, complain that we got a bad character and exit 
+      decrement location after this is done
+ *
+ *  - This function will throw an error and end the program if:
+ *      - An attempt is made to combine to expressions when there is only one
+ *        expression in the stack array
+ *      - command is neither a variable or an operator 
  */
  
 void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command){
@@ -47,9 +70,8 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
         (*location)++;
     } else if (is_operator(command)){
     
-        // Need at least two expressions on the stack to execute any operator
         if ((*location) < 2){
-            //fprintf(stderr, "Not enough expressions to perform operation: %c\n", command);
+            fprintf(stderr, "Not enough expressions to perform operation: %c\n", command);
             exit(EXIT_FAILURE);
         }
         
@@ -57,22 +79,42 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
         char *expr_right = (char*)sarr[(*location) - 1].content;
         char *new_expr = combine_expr(expr_left, expr_right, command);
         
-        sarr[(*location) - 1] = (struct stack){{0}, 0};;
-        sarr[(*location) - 2] = (struct stack){{0}, 0};;
-
+        sarr[(*location) - 1] = (struct stack){{0}, 0};
+        sarr[(*location) - 2] = (struct stack){{0}, 0};
+        
         (*location) -= 2;
-        memcpy(sarr[*location].content, new_expr, 1000);
+        
+        // Doing it this way (as opposed to memcpy) allows us to protect against
+        // stack overflow issues
+        for (uint16_t i = 0; i < strlen(new_expr); i++){
+            append(&sarr[(*location)], new_expr[i]);
+        }
+
         (*location)++;
         free(new_expr);
     } else {
-        //fprintf(stderr,"Invalid character detected: %c\n",command);
+        fprintf(stderr,"Invalid character detected: %c\n",command);
         exit(EXIT_FAILURE);
     }
 }
 
+/* Given an expression expr in RPN, convert it to infix and return the result
+ * 1. Create an array of 50 stacks. Each stack will contain one expression
+ * 2. Loop through expr, executing each command on the stack array (see
+ *    update_rpn_stack)
+ * 3. Return the contents of the first stack in stack_arr - this will have the
+ *    final expression, since all sub-expressions are combined into one final
+ *    expression by the end (or should be, assuming good input)
+ *
+ * This function will throw an error and exit the program if:
+ *     - The initial RPN expression is invalid
+ *     - The final infix expression is invalid (this will be shown by there 
+ *       being more than one expression remaining in the stack array, which can
+ *       be caused by a deficit of operators (e.g. 'ab' will fail)
+ */
 const char * rpn_to_infix(const char * expr){
     if (!is_valid_rpn_expr(expr)){
-        //fprintf(stderr, "Invalid expression\n");
+        fprintf(stderr, "Invalid expression\n");
         exit(EXIT_FAILURE);
     }
 
@@ -89,7 +131,7 @@ const char * rpn_to_infix(const char * expr){
     //Check to make sure we only have one expression remaining
     for (int16_t i = 1; i < 50; i++){
         if (stack_arr[i].content[0] != 0){
-            //fprintf(stderr, "Too many variables in expression\n");
+            fprintf(stderr, "Too many variables in expression\n");
             exit(EXIT_FAILURE);
         }
     }

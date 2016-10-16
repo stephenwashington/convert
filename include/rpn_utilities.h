@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #pragma once
 
+
+// Our stack datatype - holds individual characters in an array
 #define MAX_STACK_LENGTH 1000
 
 struct stack{
@@ -9,9 +11,11 @@ struct stack{
     int16_t length;
 };
 
+// Helper functions to remove and add items to the stack
 void append(struct stack *s, uint8_t c);
 void pop(struct stack *s);
 
+// Helper functions to identify individual characters
 int16_t operator_precedence(uint8_t c);
 bool is_operator(uint8_t c);
 bool is_right_associative(uint8_t c);
