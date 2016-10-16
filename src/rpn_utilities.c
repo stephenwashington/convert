@@ -39,7 +39,6 @@ void pop(struct stack *s){
  * their names
  */
 
-
 // For this project, lower number indicates higher precedence
 int16_t operator_precedence(uint8_t c){
     if (c == '+') return 5; 

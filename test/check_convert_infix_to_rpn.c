@@ -47,7 +47,9 @@ START_TEST(test_infix_to_rpn_mismatched_parentheses3){
     infix_to_rpn("(a)+(g)*(((b-a)+c)^(c+(e*(d^f))))");
 } END_TEST
 
-
+START_TEST(test_infix_to_rpn_very_long_input){
+    infix_to_rpn("(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)*(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z)");
+} END_TEST
 
 Suite * make_infix_to_rpn_suite(void){
     Suite *s;
@@ -65,14 +67,13 @@ Suite * make_infix_to_rpn_suite(void){
                    test_infix_to_rpn_obey_order_of_operations);
     tcase_add_test(tc_core, test_infix_to_rpn_expr_with_parentheses);
     tcase_add_test(tc_core, test_infix_to_rpn_complex_expression);
-    tcase_add_exit_test(tc_core,\
-                        test_infix_to_rpn_mismatched_parentheses,\
+    tcase_add_exit_test(tc_core, test_infix_to_rpn_mismatched_parentheses,\
                         EXIT_FAILURE);
-    tcase_add_exit_test(tc_core,\
-                        test_infix_to_rpn_mismatched_parentheses2,\
+    tcase_add_exit_test(tc_core, test_infix_to_rpn_mismatched_parentheses2,\
                         EXIT_FAILURE);
-    tcase_add_exit_test(tc_core,\
-                        test_infix_to_rpn_mismatched_parentheses3,\
+    tcase_add_exit_test(tc_core, test_infix_to_rpn_mismatched_parentheses3,\
+                        EXIT_FAILURE);
+    tcase_add_exit_test(tc_core, test_infix_to_rpn_very_long_input,\
                         EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 

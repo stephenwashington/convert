@@ -114,7 +114,7 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
  */
 const char * rpn_to_infix(const char * expr){
     if (!is_valid_rpn_expr(expr)){
-        fprintf(stderr, "Invalid expression\n");
+        fprintf(stderr, "Invalid RPN expression\n");
         exit(EXIT_FAILURE);
     }
 

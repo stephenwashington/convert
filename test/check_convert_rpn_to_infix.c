@@ -30,6 +30,10 @@ START_TEST(test_rpn_to_infix_too_many_expressions){
     rpn_to_infix("ag+ba-c+cedf*");
 } END_TEST
 
+START_TEST(test_rpn_to_infix_too_long_input){
+    rpn_to_infix("ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*ab+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x+y+z+*");
+} END_TEST
+
 Suite * make_rpn_to_infix_suite(void){
     Suite *s;
     TCase *tc_core;
@@ -43,6 +47,8 @@ Suite * make_rpn_to_infix_suite(void){
     tcase_add_test(tc_core, test_rpn_to_infix_medium_difficulty);
     tcase_add_test(tc_core, test_rpn_to_infix_hard_difficulty);
     tcase_add_exit_test(tc_core, test_rpn_to_infix_too_many_expressions,\
+                        EXIT_FAILURE);
+    tcase_add_exit_test(tc_core, test_rpn_to_infix_too_long_input,\
                         EXIT_FAILURE);
     suite_add_tcase(s, tc_core);
 

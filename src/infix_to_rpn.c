@@ -138,7 +138,7 @@ const char * infix_to_rpn(const char * expr){
     struct stack symbol_stack = { .content = {0}, .length = 0};
     
     if (!is_valid_infix_expr(expr)){
-        fprintf(stderr, "Invalid expression\n");
+        fprintf(stderr, "Invalid infix expression\n");
         exit(EXIT_FAILURE);
     }
     
