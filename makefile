@@ -4,6 +4,7 @@ SRCDIR := src
 BUILDDIR := build
 TESTDIR := test
 
+TARGET := bin/convert
 TEST_TARGET := bin/rpn_tests
 
 SOURCES := $(shell find $(SRCDIR) -type f -name *.c)
@@ -16,7 +17,12 @@ CFLAGS := -std=c99 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wstrict-overflow -
 LIBS := -lcheck -lm -lsubunit -lrt -lpthread
 INC := -I include
 
+all: convert tests
+convert: $(TARGET)
 tests: $(TEST_TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $^ -o $(TARGET) $(INC) $(CFLAGS) $(LIBS)
 
 $(TEST_TARGET): $(TEST_OBJECTS)
 	$(CC) $^ -o $(TEST_TARGET) $(INC) $(CFLAGS) $(LIBS)
