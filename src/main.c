@@ -12,7 +12,7 @@ int main(void){
     printf("Please input your expression to convert: ");
     
     if (fgets(expr, 500, stdin) == NULL){
-        fprintf(stderr, "Couldn't get expression");
+        fprintf(stderr, "Couldn't get expression\n");
         exit(EXIT_FAILURE);
     }
     expr[strlen(expr) - 1] = '\0';
@@ -20,10 +20,13 @@ int main(void){
     printf("[1]: Convert from Reverse Polish Notation to Infix Notation\n");
     printf("[2]: Convert from Infix Notation to Reverse Polish Notation\n\n");
     printf("Your selection: ");
-    
     uint8_t option = getchar();
     
-    printf("\n");
+    while ((option != '1') && (option != '2')){
+        printf("Invalid option. Please select either '1' or '2': ");
+        option = getchar();
+        printf("\n");
+    }
     
     if (option == '1'){
         printf("RPN: %s\n",expr);

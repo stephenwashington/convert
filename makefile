@@ -5,13 +5,14 @@ BUILDDIR := build
 TESTDIR := test
 
 TARGET := bin/convert
-TEST_TARGET := bin/rpn_tests
+TEST_TARGET := bin/convert_tests
 
 SOURCES := $(shell find $(SRCDIR) -type f -name *.c)
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.c=.o))
 TEST_SOURCES := $(shell find $(TESTDIR) -type f -name *.c)
 TEST_OBJECTS := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TEST_SOURCES:.c=.o))
 TEST_OBJECTS += $(OBJECTS)
+TEST_OBJECTS := $(filter-out build/main.o, $(TEST_OBJECTS))
 
 CFLAGS := -std=c99 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wstrict-overflow -fstack-protector -O2
 LIBS := -lcheck -lm -lsubunit -lrt -lpthread
@@ -37,4 +38,4 @@ $(BUILDDIR)/%.o: $(TESTDIR)/%.c
 
 .PHONY: clean
 clean:
-	-@rm -rf $(BUILDDIR) $(TEST_TARGET)
+	-@rm -rf $(BUILDDIR) $(TEST_TARGET) $(TARGET)
