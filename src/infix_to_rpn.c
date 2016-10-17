@@ -45,6 +45,8 @@ bool is_valid_infix_expr(const char *expr){
     int16_t left_paren_count = 0;
     int16_t right_paren_count = 0;
     for (uint16_t i = 0; i < strlen(expr); i++){
+    
+        // Handle cases like "ab+c"
         if (i > 0 && i < strlen(expr) - 1){
             if (is_variable(expr[i]) && \
                (is_variable(expr[i-1]) || is_variable(expr[i+1]))){
@@ -62,8 +64,40 @@ bool is_valid_infix_expr(const char *expr){
         } else return false;
     }
     
-    return (variable_count - 1 == operator_count) && \
-           (left_paren_count == right_paren_count);
+    if ((variable_count - 1 != operator_count) || \
+           (left_paren_count != right_paren_count)){
+        return false;       
+    }
+    
+    //handle cases like (a+)b
+    int16_t begin = -1, end = -1;
+    left_paren_count = 0;
+    right_paren_count = 0;
+    for (uint16_t i = 0; i < strlen(expr); i++){
+        if (expr[i] == '('){
+            if (begin == -1) begin = i;
+            left_paren_count++;
+        } else if (expr[i] == ')'){
+            right_paren_count++;
+            if (left_paren_count == right_paren_count){
+                end = i;
+                int16_t len = end - begin;
+                char substr[len-2];
+                memcpy(&substr, &expr[begin+1], len-1);
+                substr[len-1] = '\0';
+                if(!is_valid_infix_expr(substr)){
+                    return false;
+                } else {
+                    begin = -1;
+                    end = -1;
+                }
+            }
+        }
+    }
+    
+    //printf("WE GOOD BOYZ\n");
+    return true;
+    
 }
 
 /* Given a stack for variables, a stack for symbols (operators and parentheses),
