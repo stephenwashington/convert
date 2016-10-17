@@ -45,6 +45,12 @@ bool is_valid_infix_expr(const char *expr){
     int16_t left_paren_count = 0;
     int16_t right_paren_count = 0;
     for (uint16_t i = 0; i < strlen(expr); i++){
+        if (i > 0 && i < strlen(expr) - 1){
+            if (is_variable(expr[i]) && \
+               (is_variable(expr[i-1]) || is_variable(expr[i+1]))){
+                return false;
+            }
+        }
         if (is_variable(expr[i])){
             variable_count++;
         } else if (is_operator(expr[i])){
