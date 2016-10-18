@@ -6,23 +6,23 @@
 #include "unit_tests.h"
 #include "infix_to_rpn.h"
 
-START_TEST(test_infix_to_rpn_stacks_simple){
+START_TEST(test_infix_to_rpn_simple){
     char *result = infix_to_rpn("a");
     ck_assert_str_eq(result, "a");
     free(result);
 } END_TEST
 
-START_TEST(test_infix_to_rpn_stacks_ab){
+START_TEST(test_infix_to_rpn_ab){
     infix_to_rpn("ab");
 } END_TEST
 
-START_TEST(test_infix_to_rpn_stacks_a_plus_b){
+START_TEST(test_infix_to_rpn_a_plus_b){
     char *result = infix_to_rpn("a+b");
     ck_assert_str_eq(result, "ab+");
     free(result);
 } END_TEST
 
-START_TEST(test_infix_to_rpn_stacks_a_plus_b_minus_c){
+START_TEST(test_infix_to_rpn_a_plus_b_minus_c){
     char *result = infix_to_rpn("a+b-c");
     ck_assert_str_eq(result, "abc-+");
     free(result);
@@ -82,11 +82,11 @@ Suite * make_infix_to_rpn_suite(void){
     s = suite_create("infix_to_rpn");
     tc_core = tcase_create("Core");
 
-    tcase_add_test(tc_core, test_infix_to_rpn_stacks_simple);
-    tcase_add_exit_test(tc_core, test_infix_to_rpn_stacks_ab,\
+    tcase_add_test(tc_core, test_infix_to_rpn_simple);
+    tcase_add_exit_test(tc_core, test_infix_to_rpn_ab,\
                         EXIT_FAILURE);
-    tcase_add_test(tc_core, test_infix_to_rpn_stacks_a_plus_b);
-    tcase_add_test(tc_core, test_infix_to_rpn_stacks_a_plus_b_minus_c);
+    tcase_add_test(tc_core, test_infix_to_rpn_a_plus_b);
+    tcase_add_test(tc_core, test_infix_to_rpn_a_plus_b_minus_c);
     tcase_add_test(tc_core,\
                    test_infix_to_rpn_obey_order_of_operations);
     tcase_add_test(tc_core, test_infix_to_rpn_expr_with_parentheses);

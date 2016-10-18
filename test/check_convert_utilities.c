@@ -1,4 +1,3 @@
-#include <stdint.h>
 #include <check.h>
 #include <stdbool.h>
 #include "utilities.h"

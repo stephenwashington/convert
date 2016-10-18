@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include "utilities.h"
 #include "infix_to_rpn.h"
@@ -34,7 +33,7 @@ bool should_pop(uint8_t command, uint8_t prev_command){
  * is valid iff each expression contained within () is also valid using the
  * conditions above
  * 
- * Note that this function does catch all instances of syntactically invalid
+ * Note that this function does not catch all instances of syntactically invalid
  * expressions - those cases that fool this function tend to be caught when the
  * expression is converted
  */
@@ -153,7 +152,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
             
         } else append(symbol, command);
     } else {
-        print_error("Invalid characted detected");
+        print_error("Invalid character detected");
     }
 }
 

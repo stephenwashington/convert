@@ -1,6 +1,4 @@
-#include <stdint.h>
 #include <check.h>
-#include <stdio.h>
 #include "utilities.h"
 #include "unit_tests.h"
 #include "rpn_to_infix.h"

@@ -9,7 +9,7 @@
  * An RPN expression is valid if the number of variables (letters) is one more
  * than the number of operators ( / + - * ^ )
  * 
- * Note that this function does catch all instances of syntactically invalid
+ * Note that this function does not catch all instances of syntactically invalid
  * expressions - those cases that fool this function tend to be caught when the
  * expression is converted
  */
