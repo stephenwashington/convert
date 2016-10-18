@@ -4,8 +4,8 @@ SRCDIR := src
 BUILDDIR := build
 TESTDIR := test
 
-TARGET := bin/convert
-TEST_TARGET := bin/convert_tests
+TARGET := convert
+TEST_TARGET := convert_tests
 
 SOURCES := $(shell find $(SRCDIR) -type f -name *.c)
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.c=.o))

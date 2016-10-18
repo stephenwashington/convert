@@ -4,7 +4,7 @@ This is a simple C program that converts a mathematical expression from Reverse 
 
 This library was written in C99 and uses the [Check](https://libcheck.github.io/check) testing suite. Its only dependencies are Check, GNU make (to build), and GNU GCC (to compile). In addition, `libsubunit-dev` might need to be installed for Check, depending on your operating system - if you get a "Cannot find '-lsubunit'" error from GCC, this would be how to fix it.
 
-To build the script, run `make convert`. To build the testing script, run `make tests`. Both executables will be generated in the `bin/` directory (as `convert` and `convert_tests`, respectively), and can be run from there. `make all` will make both scripts, and `make clean` will remove them as well as any build artifacts.
+To build the script, run `make convert`. To build the testing script, run `make tests`. The executables will be `convert` and `convert_tests`, respectively. `make all` will make both scripts, and `make clean` will remove them as well as any build artifacts.
 
 `convert` takes no arguments, but will prompt the user for an initial expression no longer than 500 characters and the type of conversion. The initial expression must consist of operands in the form of lowercase letters, valid operators (`^`, `/`, `*`, `-`, `+`), and parentheses (`(` and `)` only). 
 

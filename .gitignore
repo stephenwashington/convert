@@ -1,6 +1,4 @@
 build
-bin/*
-*.pdf
 
 ### GITHUB VIM PROJECT GITIGNORE TEMPLATE ###
 # swap
