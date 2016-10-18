@@ -31,7 +31,7 @@ bool should_pop(uint8_t command, uint8_t prev_command){
  * An infix expression is valid if the number of variables (letters) is one more
  * than the number of operators ( / + - * ^ ), and the parentheses match up
  * (i.e. there are an equal number of '(' and ')'). In addition, the expression
- * is valid if each expression contained within () is also valid using the
+ * is valid iff each expression contained within () is also valid using the
  * conditions above
  * 
  * Note that this function does catch all instances of syntactically invalid
@@ -95,7 +95,6 @@ bool is_valid_infix_expr(const char *expr){
         }
     }
     
-    //printf("WE GOOD BOYZ\n");
     return true;
     
 }
@@ -174,7 +173,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
  *       mis-matched parentheses)
  */
 
-const char * infix_to_rpn(const char * expr){
+char * infix_to_rpn(const char * expr){
     struct stack variable_stack = { .content = {0}, .length = 0};
     struct stack symbol_stack = { .content = {0}, .length = 0};
     

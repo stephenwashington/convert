@@ -44,11 +44,17 @@ int main(void){
     printf("\n");
     
     if (option == '1'){
+        char *result = rpn_to_infix(expr);
         printf("RPN: %s\n",expr);
-        printf("Infix: %s\n",rpn_to_infix(expr));
+        printf("Infix: %s\n",result);
+        free(result);
+
     } else if (option == '2'){
+        char *result = infix_to_rpn(expr);
         printf("Infix: %s\n",expr);
-        printf("RPN: %s\n",infix_to_rpn(expr));
+        printf("RPN: %s\n",result);
+        free(result);
     }
     printf("\n");
+    return 0;
 }

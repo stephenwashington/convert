@@ -14,7 +14,7 @@ TEST_OBJECTS := $(patsubst $(TESTDIR)/%,$(BUILDDIR)/%,$(TEST_SOURCES:.c=.o))
 TEST_OBJECTS += $(OBJECTS)
 TEST_OBJECTS := $(filter-out build/main.o, $(TEST_OBJECTS))
 
-CFLAGS := -std=c99 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wstrict-overflow -fstack-protector -O2
+CFLAGS := -std=c99 -g -Wall -Wextra -Wpedantic -Werror -Wshadow -Wstrict-overflow -fstack-protector
 LIBS := -lcheck -lm -lsubunit -lrt -lpthread
 INC := -I include
 

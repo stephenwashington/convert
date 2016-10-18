@@ -38,7 +38,7 @@ bool is_valid_rpn_expr(const char *expr){
  */
 
 char * combine_expr(char *expr_left, char *expr_right, uint8_t command){
-    char *expr = calloc(strlen(expr_left) + strlen(expr_right) + 3,\
+    char *expr = calloc(strlen(expr_left) + strlen(expr_right) + 4,\
                  sizeof(char));
     const char *left_paren = "(";
     const char *right_paren = ")";
@@ -114,7 +114,7 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
  *       being more than one expression remaining in the stack array, which can
  *       be caused by a deficit of operators (e.g. 'ab' will fail)
  */
-const char * rpn_to_infix(const char * expr){
+char * rpn_to_infix(const char * expr){
     if (!is_valid_rpn_expr(expr)){
         fprintf(stderr, "Invalid RPN expression\n");
         exit(EXIT_FAILURE);

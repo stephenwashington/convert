@@ -13,5 +13,5 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
                             uint8_t command);
                             
 // Covnerts expr from infix to RPN
-const char * infix_to_rpn(const char * expr);
+char * infix_to_rpn(const char * expr);
 
