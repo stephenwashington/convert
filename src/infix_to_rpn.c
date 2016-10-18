@@ -129,17 +129,18 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
     else if (is_symbol(command)){
         if (command == ')'){
             uint8_t c = symbol->content[symbol->length - 1];
-            while (symbol->length > 0 && is_operator(c)){
+            while (c != '('){
+                if (symbol->length == 0){
+                    fprintf(stderr, "Mismatched parentheses\n");
+                    exit(EXIT_FAILURE);
+                }
                 c = symbol->content[symbol->length - 1];
                 if(is_operator(c)){
                     append(variable, c);
                     pop(symbol);
                 }
-                else if (is_parenthesis(c)){
-                    pop(symbol);
-                    if (c == '(') break;
-                }
             }
+            pop(symbol);
             
         } else if (is_operator(command) && symbol->length > 0) {
             uint8_t prev_operator = symbol->content[symbol->length - 1];

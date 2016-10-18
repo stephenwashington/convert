@@ -44,7 +44,7 @@ START_TEST(test_infix_to_rpn_mismatched_parentheses2){
 } END_TEST
 
 START_TEST(test_infix_to_rpn_mismatched_parentheses3){
-    infix_to_rpn("(a)+(g)*(((b-a)+c)^(c+(e*(d^f))))");
+    infix_to_rpn("(a)+g)*(((b-a)+c)^(c+(e*(d^f))))");
 } END_TEST
 
 START_TEST(test_infix_to_rpn_very_long_input){
@@ -57,6 +57,10 @@ START_TEST(test_infix_to_rpn_rpn_input){
 
 START_TEST(test_infix_to_rpn_bad_parentheses){
     infix_to_rpn("(a+)b");
+} END_TEST
+
+START_TEST(test_infix_to_rpn_valid_parentheses){
+    infix_to_rpn("(a)");
 } END_TEST
 
 Suite * make_infix_to_rpn_suite(void){
@@ -86,6 +90,7 @@ Suite * make_infix_to_rpn_suite(void){
     tcase_add_exit_test(tc_core, test_infix_to_rpn_rpn_input, EXIT_FAILURE);
     tcase_add_exit_test(tc_core, test_infix_to_rpn_bad_parentheses,\
                         EXIT_FAILURE);
+    tcase_add_test(tc_core, test_infix_to_rpn_valid_parentheses);
     suite_add_tcase(s, tc_core);
 
     return s;

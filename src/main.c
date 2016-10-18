@@ -9,7 +9,7 @@
 int main(void){
     char expr[500];
     printf("\n========== RPN To Infix Converter ==========\n\n");
-    printf("Please input your expression to convert: ");
+    printf("Please input your expression to convert (max 500 characters): ");
     
     if (fgets(expr, 500, stdin) == NULL){
         fprintf(stderr, "Couldn't get expression\n");
