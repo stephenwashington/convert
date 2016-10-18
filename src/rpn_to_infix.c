@@ -10,11 +10,9 @@
  * An RPN expression is valid if the number of variables (letters) is one more
  * than the number of operators ( / + - * ^ )
  * 
- * Note that this function does not determine whether the expression is a
- * *syntactically* valid function (i.e. it will return true for "a+b") - it is
- * only supposed to be a first-pass check that catches invalid characters. 
- * Whether expr is syntactically valid or not will come about during the 
- * conversion process
+ * Note that this function does catch all instances of syntactically invalid
+ * expressions - those cases that fool this function tend to be caught when the
+ * expression is converted
  */
 
 bool is_valid_rpn_expr(const char *expr){
@@ -26,6 +24,10 @@ bool is_valid_rpn_expr(const char *expr){
         } else if (is_operator(expr[i])){
             operator_count++;
         } else return false;
+        
+        if ((variable_count == operator_count) && variable_count > 0){
+            return false;
+        }
     }
     
     return (variable_count - 1 == operator_count);

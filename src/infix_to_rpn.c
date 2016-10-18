@@ -30,13 +30,13 @@ bool should_pop(uint8_t command, uint8_t prev_command){
  * 
  * An infix expression is valid if the number of variables (letters) is one more
  * than the number of operators ( / + - * ^ ), and the parentheses match up
- * (i.e. there are an equal number of '(' and ')')
+ * (i.e. there are an equal number of '(' and ')'). In addition, the expression
+ * is valid if each expression contained within () is also valid using the
+ * conditions above
  * 
- * Note that this function does not determine whether the expression is a
- * *syntactically* valid function (i.e. it will return true for "ab+") - it is
- * only supposed to be a first-pass check that catches invalid characters. 
- * Whether expr is syntactically valid or not will come about during the 
- * conversion process
+ * Note that this function does catch all instances of syntactically invalid
+ * expressions - those cases that fool this function tend to be caught when the
+ * expression is converted
  */
 
 bool is_valid_infix_expr(const char *expr){
