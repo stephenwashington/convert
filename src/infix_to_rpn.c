@@ -130,8 +130,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
             uint8_t c = symbol->content[symbol->length - 1];
             while (c != '('){
                 if (symbol->length == 0){
-                    fprintf(stderr, "Mismatched parentheses\n");
-                    exit(EXIT_FAILURE);
+                    print_error("Mismatched parentheses");
                 }
                 c = symbol->content[symbol->length - 1];
                 if(is_operator(c)){
@@ -154,8 +153,7 @@ void update_infix_stacks(struct stack *variable, struct stack *symbol,\
             
         } else append(symbol, command);
     } else {
-        fprintf(stderr, "Invalid characted detected: %c\n", command);
-        exit(EXIT_FAILURE);
+        print_error("Invalid characted detected");
     }
 }
 
@@ -178,8 +176,7 @@ char * infix_to_rpn(const char * expr){
     struct stack symbol_stack = { .content = {0}, .length = 0};
     
     if (!is_valid_infix_expr(expr)){
-        fprintf(stderr, "Invalid infix expression\n");
-        exit(EXIT_FAILURE);
+        print_error("Invalid infix expression");
     }
     
     for (uint16_t i = 0; i < strlen(expr); i++){
@@ -193,8 +190,7 @@ char * infix_to_rpn(const char * expr){
     
     for (int16_t i = 0; i < variable_stack.length; i++){
         if (is_parenthesis(variable_stack.content[i])){
-            fprintf(stderr, "Mismatched parentheses in expression\n");
-            exit(EXIT_FAILURE);
+            print_error("Mismatched parentheses in expression");
         }
     }
     char *result = calloc(1000, sizeof(char));

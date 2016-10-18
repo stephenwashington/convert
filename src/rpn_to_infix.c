@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include "rpn_utilities.h"
 #include "rpn_to_infix.h"
 
@@ -66,15 +65,14 @@ char * combine_expr(char *expr_left, char *expr_right, uint8_t command){
  *      - command is neither a variable or an operator 
  */
  
-void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command){
+void update_rpn_stack(struct stack sarr[50], int16_t *location,uint8_t command){
     if (is_variable(command)){
         sarr[*location].content[0] = command;    
         (*location)++;
     } else if (is_operator(command)){
     
         if ((*location) < 2){
-            fprintf(stderr, "Not enough expressions to perform operation: %c\n", command);
-            exit(EXIT_FAILURE);
+            print_error("Not enough expressions to perform all operations");
         }
         
         char *expr_left = (char*)sarr[(*location) - 2].content;
@@ -95,8 +93,7 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
         (*location)++;
         free(new_expr);
     } else {
-        fprintf(stderr,"Invalid character detected: %c\n",command);
-        exit(EXIT_FAILURE);
+        print_error("Invalid character detected");
     }
 }
 
@@ -116,8 +113,7 @@ void update_rpn_stack(struct stack sarr[50], int16_t *location, uint8_t command)
  */
 char * rpn_to_infix(const char * expr){
     if (!is_valid_rpn_expr(expr)){
-        fprintf(stderr, "Invalid RPN expression\n");
-        exit(EXIT_FAILURE);
+        print_error("Invalid RPN expression");
     }
 
     struct stack stack_arr[50];
@@ -133,8 +129,7 @@ char * rpn_to_infix(const char * expr){
     //Check to make sure we only have one expression remaining
     for (int16_t i = 1; i < 50; i++){
         if (stack_arr[i].content[0] != 0){
-            fprintf(stderr, "Too many variables in expression\n");
-            exit(EXIT_FAILURE);
+            print_error("Too many variables in expression");
         }
     }
 

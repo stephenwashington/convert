@@ -11,6 +11,9 @@ struct stack{
     int16_t length;
 };
 
+// Helper function to print an error and exit the program
+void print_error(const char * msg);
+
 // Helper functions to remove and add items to the stack
 void append(struct stack *s, uint8_t c);
 void pop(struct stack *s);

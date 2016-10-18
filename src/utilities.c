@@ -6,6 +6,14 @@
 #include <ctype.h>
 #include "rpn_utilities.h"
 
+/* Helper function to report errors to the user
+ */
+ 
+void print_error(const char * msg){
+    fprintf(stderr, "ERROR: %s\n",msg);
+    exit(EXIT_FAILURE);
+}
+
 /* Helper functions to append and remove items from the stack
  * MAX_STACK_LENGTH is 1000 by default, so we can protect ourselves from stack
  * overflow issues
@@ -13,12 +21,10 @@
 
 void append(struct stack *s, uint8_t c){
     if (s->length == MAX_STACK_LENGTH){
-        fprintf(stderr, "Stack overflow error\n");
-        exit(EXIT_FAILURE);
+        print_error("Stack overflow");
     }
     if (!is_valid_char(c)){
-        fprintf(stderr, "Cannot append this character: %c\n", c);
-        exit(EXIT_FAILURE);
+        print_error("Invalid character detected");
     }
     memcpy(&s->content[s->length], &c, 1);
     s->length++;
@@ -26,8 +32,7 @@ void append(struct stack *s, uint8_t c){
 
 void pop(struct stack *s){
     if (s->length == 0){
-        fprintf(stderr, "Attempting to pop off of empty stack\n");
-        exit(EXIT_FAILURE);
+        print_error("Attempting to pop off of empty stack");
     }
     s->content[s->length - 1] = '\0';
     s->length--;
