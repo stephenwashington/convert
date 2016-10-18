@@ -2,8 +2,8 @@
 #include <check.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "rpn_utilities.h"
-#include "rpn_unit_tests.h"
+#include "utilities.h"
+#include "unit_tests.h"
 
 START_TEST(test_rpn_stack_append_single){
     struct stack s = { .content = {0}, .length = 0};

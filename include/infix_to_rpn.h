@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdlib.h>
+#include "utilities.h"
 #pragma once
 
 // Helper function for update_infix_stats (see src/infix_to_rpn.c)

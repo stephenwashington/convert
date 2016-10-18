@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include "rpn_utilities.h"
+#include "utilities.h"
 #include "rpn_to_infix.h"
 
 /* Helper function that returns whether expr is a valid RPN expression

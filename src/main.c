@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include "rpn_utilities.h"
+#include "utilities.h"
 #include "rpn_to_infix.h"
 #include "infix_to_rpn.h"
 

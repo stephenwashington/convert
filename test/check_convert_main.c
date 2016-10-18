@@ -1,7 +1,7 @@
 #include <check.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "rpn_unit_tests.h"
+#include "unit_tests.h"
 
 int main(void){
     int16_t number_failed;

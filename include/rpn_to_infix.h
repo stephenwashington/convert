@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdlib.h>
-#include "rpn_utilities.h"
+#include "utilities.h"
 #pragma once
 
 // Helper function that returns whether expr is a roughly valid RPN expression

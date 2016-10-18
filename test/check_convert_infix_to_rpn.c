@@ -2,8 +2,8 @@
 #include <check.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "rpn_utilities.h"
-#include "rpn_unit_tests.h"
+#include "utilities.h"
+#include "unit_tests.h"
 #include "infix_to_rpn.h"
 
 START_TEST(test_infix_to_rpn_stacks_simple){

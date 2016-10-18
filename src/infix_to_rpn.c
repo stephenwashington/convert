@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "rpn_utilities.h"
+#include "utilities.h"
 #include "infix_to_rpn.h"
 
 /* Given the current and previously added operator to the operator stack,

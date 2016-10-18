@@ -1,8 +1,8 @@
 #include <stdint.h>
 #include <check.h>
 #include <stdbool.h>
-#include "rpn_utilities.h"
-#include "rpn_unit_tests.h"
+#include "utilities.h"
+#include "unit_tests.h"
 
 START_TEST(test_rpn_utilities_a){
     ck_assert_int_eq(is_variable('a'), true);
