@@ -56,9 +56,9 @@ The script first creates a stack of length 50, with each element in the stack ab
 For each character in the RPN expression:
 - If the character is a variable, append it to the stack
 - If the character is an operand:
-    1. Pop off the top two contents of the stack (if there are fewer that two operators on the stack, report an error and exit)
-    2. Combine the result of the two pops with the operand, wrapping the result in parentheses
-    3. Append this new expression to the stack
+    - Pop off the top two contents of the stack (if there are fewer that two operators on the stack, report an error and exit)
+    - Combine the result of the two pops with the operand, wrapping the result in parentheses
+    - Append this new expression to the stack
     
 When the loop is done and, assuming the RPN expression was valid, the result will be a single expression on the stack, and that expression with be the infix expression. That expression is returned and printed to the screen. If there is more than one expression remaining on the stack, then there was a syntactical error in the initial expression, and an error is thrown.
 
@@ -88,9 +88,9 @@ For each character in the RPN expression:
     
 - If the character is a symbol:
     - If the character is `)`:
-        1. Starting from the top of the operator stack, pop off all operators and append them to the variable stack
-        2. If this loop reaches an `(`, pop it off and terminate the loop
-        3. If this loop reaches the bottom of the operator stack without having found a `(`, there were mismatched parentheses in the expression, so throw an error
+        - Starting from the top of the operator stack, pop off all operators and append them to the variable stack
+        - If this loop reaches an `(`, pop it off and terminate the loop
+        - If this loop reaches the bottom of the operator stack without having found a `(`, there were mismatched parentheses in the expression, so throw an error
     - If the character `c1` is an operator and the symbol stack is not empty:
         - If the symbol at the top of the symbol stack `c2` is an operator AND either (`c1` is right-associative and has greater precedence than `c2`) OR (`c1` is left-associative and has precedence greater than or equal to `c2`), pop `c2` off the symbol stack and append it to the operator stack. 
         - Repeat this for each operator at the top of the symbol stack, break from this loop if the above is not true
