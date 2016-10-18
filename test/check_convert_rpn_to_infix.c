@@ -6,11 +6,15 @@
 #include "rpn_to_infix.h"
 
 START_TEST(test_rpn_to_infix_simple){
-    ck_assert_str_eq(rpn_to_infix("a"), "a");
+    char *result = rpn_to_infix("a");
+    ck_assert_str_eq(result, "a");
+    free(result);
 } END_TEST
 
 START_TEST(test_rpn_to_infix_a_plus_b){
-    ck_assert_str_eq(rpn_to_infix("ab+"), "(a+b)");
+    char *result = rpn_to_infix("ab+");
+    ck_assert_str_eq(result, "(a+b)");
+    free(result);
 } END_TEST
 
 START_TEST(test_rpn_to_infix_ab_throw_error){
@@ -18,12 +22,15 @@ START_TEST(test_rpn_to_infix_ab_throw_error){
 } END_TEST
 
 START_TEST(test_rpn_to_infix_medium_difficulty){
-    ck_assert_str_eq(rpn_to_infix("vw/x^yz-*"), "(((v/w)^x)*(y-z))");
+    char *result = rpn_to_infix("vw/x^yz-*");
+    ck_assert_str_eq(result, "(((v/w)^x)*(y-z))");
+    free(result);
 } END_TEST
 
 START_TEST(test_rpn_to_infix_hard_difficulty){
-    ck_assert_str_eq(rpn_to_infix("ag+ba-c+cedf^*+^*"), \
-                                  "((a+g)*(((b-a)+c)^(c+(e*(d^f)))))");
+    char *result = rpn_to_infix("ag+ba-c+cedf^*+^*");
+    ck_assert_str_eq(result, "((a+g)*(((b-a)+c)^(c+(e*(d^f)))))");
+    free(result);
 } END_TEST
 
 START_TEST(test_rpn_to_infix_too_many_expressions){

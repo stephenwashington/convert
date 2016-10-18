@@ -7,7 +7,9 @@
 #include "infix_to_rpn.h"
 
 START_TEST(test_infix_to_rpn_stacks_simple){
-    ck_assert_str_eq(infix_to_rpn("a"), "a");
+    char *result = infix_to_rpn("a");
+    ck_assert_str_eq(result, "a");
+    free(result);
 } END_TEST
 
 START_TEST(test_infix_to_rpn_stacks_ab){
@@ -15,19 +17,27 @@ START_TEST(test_infix_to_rpn_stacks_ab){
 } END_TEST
 
 START_TEST(test_infix_to_rpn_stacks_a_plus_b){
-    ck_assert_str_eq(infix_to_rpn("a+b"), "ab+");
+    char *result = infix_to_rpn("a+b");
+    ck_assert_str_eq(result, "ab+");
+    free(result);
 } END_TEST
 
 START_TEST(test_infix_to_rpn_stacks_a_plus_b_minus_c){
-    ck_assert_str_eq(infix_to_rpn("a+b-c"), "abc-+");
+    char *result = infix_to_rpn("a+b-c");
+    ck_assert_str_eq(result, "abc-+");
+    free(result);
 } END_TEST
 
 START_TEST(test_infix_to_rpn_obey_order_of_operations){
-    ck_assert_str_eq(infix_to_rpn("l/m^n*o-p"), "lmn^/o*p-");
+    char *result = infix_to_rpn("l/m^n*o-p");
+    ck_assert_str_eq(result, "lmn^/o*p-");
+    free(result);
 } END_TEST
 
 START_TEST(test_infix_to_rpn_expr_with_parentheses){
-    ck_assert_str_eq(infix_to_rpn("((v/w)^x)*(y-z)"), "vw/x^yz-*");
+    char *result = infix_to_rpn("((v/w)^x)*(y-z)");
+    ck_assert_str_eq(result, "vw/x^yz-*");
+    free(result);
 } END_TEST
 
 START_TEST(test_infix_to_rpn_complex_expression){
@@ -60,7 +70,9 @@ START_TEST(test_infix_to_rpn_bad_parentheses){
 } END_TEST
 
 START_TEST(test_infix_to_rpn_valid_parentheses){
-    infix_to_rpn("(a)");
+    char *result = infix_to_rpn("(a)");
+    ck_assert_str_eq(result, "a");
+    free(result);
 } END_TEST
 
 Suite * make_infix_to_rpn_suite(void){
